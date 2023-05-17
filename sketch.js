@@ -1,18 +1,18 @@
-var scene;
-var level;
+let scene;
+let level;
 
-var levels;
+let levels;
 
-var keys;
+let keys;
 
-var frame;
+let frame;
 
-var selectedTextOption;
-var textOptions;
+let selectedTextOption;
+let textOptions;
 
-var dialogue;
-var dialoguePage;
-var dialogueFrag;
+let dialogue;
+let dialoguePage;
+let dialogueFrag;
 
 var codeEditor;
 var fileNames;
