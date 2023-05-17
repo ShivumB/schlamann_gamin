@@ -103,6 +103,8 @@ function Hammer() {
   this.selectedMole = 0;
   
   this.frame = 0;
+  
+  this.win = false;
 }
 
 Hammer.prototype.smash = function() {
@@ -135,6 +137,12 @@ Hammer.prototype.act = function(moles) {
     for(let i = 0; i < moles.length; i++) {
         
         if(moles[i].id > 0 && this.x + 40 > moles[i].x && this.x < moles[i].x + 40 && this.y + 40 > moles[i].y && this.y < moles[i].y + 40) {
+          
+            
+            if(moles[i].id == 2) {
+              this.win = true;
+            }
+          
             moles[i].broken = true;
         }
     }
@@ -145,6 +153,8 @@ function Level3() {
   this.p = new Hammer();
   
   this.ms = new MoleSystem(5);
+  
+  this.win = false;
 }
 
 Level3.prototype.play = function(keys) {
@@ -157,8 +167,10 @@ Level3.prototype.play = function(keys) {
     rect(0,340,600,300);
     
     this.ms.act();
-
+  
     this.p.act(this.ms.moles);
+
+    if(this.p.win) this.win = true;
 }
 
 Level3.prototype.handleKeyPressed = function() {

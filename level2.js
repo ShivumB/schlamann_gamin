@@ -6,7 +6,7 @@ function Dust(x, y) {
 }
 
 Dust.prototype.show = function() {
-    fill(89, 255, 89, 100);
+    fill(255, 255, 0, 100);
     noStroke();
     ellipse(this.x, this.y, this.size, this.size);
 };
@@ -101,17 +101,30 @@ function Level2() {
       this.dust.push(new Dust(Math.random()*580 + 10, Math.random()*580 + 10 ));   
   }
   
+  this.win = false;
+  
+  this.keyX = Math.random() * 590 + 5;
+  this.keyY = Math.random() * 590 + 5;
+  
 }
 
 Level2.prototype.play = function(keys) {
     
     background(0);
-    
+   
+  
+    fill(255, 255, 0, 200);
+    rect(this.keyX, this.keyY, 20, 20);
+  
     for(var i = 0; i < this.dust.length; i++) {
         this.dust[i].show();   
     }
     
     this.p.act(keys, this.dust);
+  
+  if(Math.abs(this.p.x - this.keyX) < 40 && Math.abs(this.p.y - this.keyY) < 40) {
+    this.win = true;
+  }
 }
 
 Level2.prototype.handleKeyPressed = function(){};

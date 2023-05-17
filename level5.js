@@ -57,6 +57,7 @@ Dial.prototype.checkHit = function(){
 
 function Level5() {
   this.d = new Dial();
+  this.win = false;
 }
 
 Level5.prototype.play = function(keys) {
@@ -83,7 +84,7 @@ Level5.prototype.play = function(keys) {
 };
 
 Level5.prototype.handleKeyPressed = function() {
-      if(keyCode === 87){
+      if(keyCode == 87) {
         this.d.checkHit();
         this.d.omega = -this.d.omega;
     }

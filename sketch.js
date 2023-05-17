@@ -14,13 +14,26 @@ var dialogue;
 var dialoguePage;
 var dialogueFrag;
 
+var codeEditor;
+var fileNames;
+var fileData;
+
+
+var questionY = 400;
+var showAnswers = false;
+var questions;
+var questionPage;
+var questionFrag;
+var answers;
+var selectedAnswer;
+
 function setup() {
   createCanvas(1200, 600);
 
   angleMode(DEGREES);
 
-  scene = "intro";
-  level = 0;
+  scene = "questions";
+  level = 1;
 
   levels = [];
   levels.push(new Level0());
@@ -38,23 +51,115 @@ function setup() {
   textOptions = [];
 
   dialogue = [
-    ["hey there", "the name's schlamann", "i put them in jail", "hope they don't break out!!!"],
-
-    ["alrbert.ior", "what no it doesn't", "schlamann youre ip again"],
-
-    ["huh"],
-
-    ["no thanks", "i'll have a #7", "you know it"],
-
-    ["yepso plaese", "i im lcato", "aardvark"],
-
-    ["what no you've gon so far"],
-
-    ["you'll never win!"],
+    "hey there", "the name's schlamann", "i put them in jail", "hope they don't break out!!!"
   ];
   
   dialoguePage = 0;
   dialogueFrag = "";
+  
+  codeEditor = new CodeEditor();
+  fileNames = [
+    
+    ["main.java", "pawn.java"],
+    
+    ["main.java", "toy.java", "watergun.java"],
+    
+    ["main.java", "animal.java", "dog.java"],
+    
+    ["main.java", "robot.java", "vacuum.java"],
+    
+    ["main.java", "tool.java", "hammer.java"],
+    
+    ["main.java", "panda.java", "buffPanda.java"]
+    
+  ];
+  
+  fileData = [
+    
+    [
+      //level 0
+      "public class Main {\npublic static void main(String[] args) {\nPawn player = new Pawn();\nwhile(true) {\nplayer.act();\nif(player.touches(orb)) win = true;;\n}\n}\n}",
+      
+      "public class Pawn {\npublic Pawn() {\n...\n}\nprivate void move() {\nif(pressedKeys.get(‘R’) {\nthis.x += 40;\n}\n}\n}"
+      
+    ],
+    
+    [
+      //level 1
+      "public class Main {\npublic static void main(String[] args) {\nWatergun player = new Watergun();\nwhile(true) {\nplayer.act();\nif(winCondition) return;\n}\n}\n}",
+      
+      "public class Toy extends GameObject {\npublic Toy() {\n//the super constructor takes two arguments - x and y position\nsuper(0, 200);\nthis.angle = 0;\n}\nprotected void rotate() {\nif(pressedKeys.get(‘O’) {\nangle++;\n}\nif(pressedKeys.get(‘P’) {\nangle--;\n}\n}\n}",
+      
+      "",
+    ],
+    
+    [
+      //level 2
+      "",
+      "",
+      "",
+    ],
+    
+    [
+      //level 3
+      "",
+      "",
+      "",
+    ],
+    
+    [
+      //level 4
+      "",
+      "",
+      "",
+    ],
+    
+    [
+      //level 5
+      "",
+      "",
+      "",
+    ]
+    
+  ];
+  
+  questions = [
+    
+    ["so", "you", "beat", "the", "first", "level huh you silly little goose well you know what that's great for you and all"],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+  ];
+  
+  questionPage = 0;
+  questionFrag = 0;
+  
+  answers = [
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+    ["", "", "", ""],
+    
+  ];
+  
+  selectedAnswer = [0, 0];
+  
 }
 
 function keyPressed() {
@@ -82,7 +187,7 @@ function keyPressed() {
     if(keyCode == 13) {
 
       if(selectedTextOption == 0) {
-        scene = "monologue";
+        scene = "prologue";
         frame = 0;
       } else if(selectedTextOption == 1) {
         scene = "settings";
@@ -102,14 +207,14 @@ function keyPressed() {
     }
   }
 
-  else if(scene == "monologue") {
+  else if(scene == "prologue") {
     if(keyCode == 13) {
-      if(dialoguePage + 1 < dialogue[level].length) {
+      if(dialoguePage + 1 < dialogue.length) {
 
         dialoguePage ++;
         frame = 0;
 
-      }else {
+      } else {
 
         scene = "game";
 
@@ -117,12 +222,44 @@ function keyPressed() {
 
     }
   }
+  
+  else if(scene == "questions") {
+    
+    if(keyCode == 13) {
+      
+      if(questionPage + 1 < questions.length) {
+
+        questionPage ++;
+        frame = 0;
+
+      } else {
+        
+        showAnswers = true;
+        
+      }
+      
+    }
+
+  }
+  
+  
+  
 }
 
 function keyReleased() {
 
   keys[keyCode] = false;
 
+}
+
+function mouseClicked() {
+  
+  if(scene == "game") {
+    if(mouseY < 50 && mouseX > 600) {
+        codeEditor.selectedFile = Math.max(Math.floor((mouseX - 600)/codeEditor.xSpacing), 0);
+    }
+  }
+  
 }
 
 function draw() {
@@ -133,6 +270,20 @@ function draw() {
 
       levels[level].play(keys);
 
+      codeEditor.play(fileNames[level], fileData[level]);
+      
+      if(levels[level].win) {
+      
+        level++;
+      
+        frame = 0;
+        scene = "questions";  
+        questionPage = 0;
+      
+        if(level >= levels.length) scene = "epilogue";
+      
+      }
+      
       break;
 
     case "intro":
@@ -195,7 +346,7 @@ function draw() {
       break;
 
 
-      case "monologue":
+      case "prologue":
 
       background(0);
 
@@ -210,9 +361,9 @@ function draw() {
 
       rect(300, 400, 600, 150);
 
-      dialogueFrag = dialogue[0][dialoguePage].substring(0, frame/4);
+      dialogueFrag = dialogue[dialoguePage].substring(0, frame/4);
 
-      if(frame/4 > dialogue[0][dialoguePage].length + 5) {
+      if(frame/4 > dialogue[dialoguePage].length + 5) {
         triangle(860, 515, 870, 515, 865, 525);
       }
 
@@ -224,6 +375,60 @@ function draw() {
 
       frame ++;
 
+      break;
+      
+      case "questions":
+      
+      background(0);
+
+      fill(255);
+      stroke(0);
+      strokeWeight(1);
+      rect(600, questionY - 150, 50, 100);
+
+      noFill();
+      stroke(255);
+      strokeWeight(3);
+
+      rect(300, questionY, 600, 150);
+
+      questionFrag = questions[level - 1][questionPage].substring(0, frame/4);
+
+      if(!showAnswers && frame/4 > questions[level - 1][questionPage].length + 5) {
+        triangle(860, 515, 870, 515, 865, 525);
+      }
+
+      fill(255);
+      noStroke();
+
+      textSize(30);
+      text(questionFrag, 325, questionY + 50);
+
+      if(showAnswers) {
+        
+        questionY += 0.1*(200 - questionY);
+        
+        if(Math.abs(200 - questionY) < 1) questionY = 200;
+        
+        if(questionY == 200) {
+          
+
+          noFill();
+          stroke(255);
+          strokeWeight(3);
+          
+          rect(300, 400, 600, 150);
+          
+          text(answers[0], 300, 300);
+          text(answers[1], 300, 300);
+          text(answers[2], 300, 300);
+          text(answers[3], 300, 300);
+          
+        }
+      }
+      
+      frame ++;
+      
       break;
 
       case "settings":

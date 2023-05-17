@@ -102,6 +102,8 @@ Gun.prototype.act = function(keys, bullets) {
     fill(255, 0, 0, 100);
     rect(-30, -10, 60, 10);
     rect(-30, 0, 10, 10);
+  
+    pop();
     
 };
 
@@ -185,6 +187,8 @@ function Level1() {
   
   this.safeZones = [new SafeZone(0,400), new SafeZone(400,0)];  
   
+  this.win = false;
+  
 }
 
 Level1.prototype.play = function(keys) {
@@ -223,6 +227,13 @@ Level1.prototype.play = function(keys) {
     
     
     this.p.act(keys, this.bullets);
+  
+    if(Math.abs(this.p.x - 480) < 50 && Math.abs(this.p.y - 80) < 50) {
+      this.win = true;
+    }
+  
+    fill(255, 255,0);
+    rect(480, 80, 40, 40);
 
 }
 
