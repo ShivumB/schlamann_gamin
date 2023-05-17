@@ -32,8 +32,8 @@ function setup() {
 
   angleMode(DEGREES);
 
-  scene = "questions";
-  level = 1;
+  scene = "intro";
+  level = 0;
 
   levels = [];
   levels.push(new Level0());
