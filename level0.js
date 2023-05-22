@@ -1,6 +1,9 @@
 function Pawn(x, y) {
     this.x = x;
     this.y = y;
+  
+    this.width = 55;
+    this.height = 55;
     
     this.targetX = this.x;
 }
@@ -23,7 +26,7 @@ Pawn.prototype.act = function(rooks) {
     
     fill(0);
     noStroke();
-    rect(this.x + 10, this.y + 10, 55, 55);
+    rect(this.x + 10, this.y + 10, this.width, this.height);
 };
 
 function Rook(x, y) {
@@ -56,7 +59,9 @@ function Level0() {
   this.rooks.push(new Rook(3*75, 370));
   this.rooks.push(new Rook(5*75, 500));
   this.rooks.push(new Rook(6*75, 0));
-
+  
+  this.win = false;
+  
 }
 
 Level0.prototype.play = function(keys) {
@@ -81,11 +86,19 @@ Level0.prototype.play = function(keys) {
     for(let i = 0; i < this.rooks.length; i++) {
         this.rooks[i].act();   
     }
+  
+  
+    if(this.p.x + this.p.width > 7*75 && this.p.x < 7*75 + 75 && this.p.y + this.p.height > 4*75 && this.p.y < 4*75 + 75) {
+      this.win = true;
+    }
+  
+  fill(0,255,255);
+  rect(7*75 + 10, 4*75 + 10, 55, 55);
     
 }
 
 Level0.prototype.handleKeyPressed = function() {
    if(keyCode == 82) {
       this.p.targetX += 75;
-   }  
+   }
 }
