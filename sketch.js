@@ -109,7 +109,7 @@ function keyPressed() {
         dialoguePage ++;
         frame = 0;
 
-      }else {
+      } else {
 
         scene = "game";
 
@@ -222,7 +222,7 @@ function draw() {
       textSize(30);
       text(dialogueFrag, 325, 450);
 
-      frame ++;
+      frame++;
 
       break;
 
