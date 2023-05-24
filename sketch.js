@@ -18,6 +18,7 @@ function setup() {
   createCanvas(1200, 600);
 
   angleMode(DEGREES);
+  textFont(loadFont('assets/fonts/VT323/VT323-Regular.ttf'));
 
   scene = "intro";
   level = 0;
