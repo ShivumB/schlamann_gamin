@@ -6,6 +6,8 @@ function Pawn(x, y) {
     this.height = 55;
     
     this.targetX = this.x;
+  
+    this.sprite = loadImage("level0/wP.png");
 }
 
 Pawn.prototype.act = function(rooks) {
@@ -24,9 +26,7 @@ Pawn.prototype.act = function(rooks) {
         
     }
     
-    fill(0);
-    noStroke();
-    rect(this.x + 10, this.y + 10, this.width, this.height);
+    image(this.sprite, this.x + 4, this.y + 4);
 };
 
 function Rook(x, y) {
@@ -35,6 +35,8 @@ function Rook(x, y) {
     this.y = y;
     
     this.targetY = 525;
+  
+    this.sprite = loadImage("level0/bR.png");
 }
 
 Rook.prototype.act = function() {
@@ -45,8 +47,8 @@ Rook.prototype.act = function() {
     
     this.y += 0.2*(this.targetY - this.y);
     
-    fill(255, 0, 0);
-    rect(this.x + 10, this.y + 10, 55, 55);
+    image(this.sprite, this.x + 4, this.y + 4);
+  
 };
 
 function Level0() {
@@ -62,6 +64,8 @@ function Level0() {
   
   this.win = false;
   
+  this.keySprite = loadImage("assets/key.png");
+  
 }
 
 Level0.prototype.play = function(keys) {
@@ -71,9 +75,9 @@ Level0.prototype.play = function(keys) {
         for(let j = 0; j < 8; j ++) {
             
             if((i + j) % 2 == 1) {
-                fill(227, 174, 100);
+                fill(30, 30, 45);
             } else {
-                fill(255, 217, 163);
+                fill(80, 80, 100);
             }
             
             rect(i*75, j*75, 75, 75);
@@ -93,7 +97,9 @@ Level0.prototype.play = function(keys) {
     }
   
   fill(0,255,255);
-  rect(7*75 + 10, 4*75 + 10, 55, 55);
+  
+  
+  image(this.keySprite, 7*75 + 4, 4*75 + 4);
     
 }
 
