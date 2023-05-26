@@ -64,10 +64,13 @@ function setup() {
   textOptions = [];
 
   prologue = [
-    "hey there",
-    "the name's schlamann",
-    "i put them in jail",
-    "hope they don't break out!!!",
+    "Hey there...",
+    "The name's Schlamann.",
+    "I've gone and locked away all of these innocent animals!",
+    "No one will be able to unlock the prison doors.",
+    "You would have to read the code to understand the secret to unlocking those cells.",
+    "I'm glad you pesky students don't know polymorphism well enough to pass all the levels.",
+    "You can try, for sure, but you will fail..."
   ];
 
   dialoguePage = 0;
@@ -160,13 +163,13 @@ function setup() {
       "Oh, you passed that level!",
       "I don't need to worry, though, because that was the easiest level.",
       "Maybe you didn't know what you were doing but got through it anyway.",
-      "We'll see if you actually get to pass…",
+      "We'll see if you actually get to pass...",
       "What is the superclass of the Game class?"
     ],
 
     [
       "What? You figured it out again?!",
-      "It's less likely… but maybe it was another fluke!",
+      "It's less likely... but maybe it was another fluke!",
       "Which method was inherited by the Watergun class?"
     ],
 
@@ -180,12 +183,12 @@ function setup() {
     [
       "How is this possible?!",
       "You shouldn't know anything about polymorphism and inheritance!",
-      "If you passed that test then you must be able to answer this question…",
+      "If you passed that test then you must be able to answer this question...",
       "When you were finding the keys for controlling the Vacuum, you should have noticed that the instantWin method of the VacuumGame class doesn't work. Which of the following changes to the code would have made it accessible?"
     ],
 
     [
-      "Oh no, no, no…",
+      "Oh no, no, no...",
       "You can't be flying through these levels.",
       "You will not be able to unlock all those prison doors. ",
       "I won't allow it. ",
@@ -196,7 +199,7 @@ function setup() {
     [
       "NO!!!",
       "WHAT HAVE YOU DONE?!",
-      "FINE!!! I'll give you my hardest question yet…",
+      "FINE!!! I'll give you my hardest question yet...",
       "Which statement about subclass methods is false?"
     ],
   ];
@@ -253,21 +256,90 @@ function setup() {
   answeredCorrectly = 0;
   answeredQuestion = false;
   responses = [
-    [["yo", "what's poppin", "you got it wrong!"], ["WHY", "I CANT BELIEVEIT", "YOU IDIOT", "YOU GOT IT RIGHT!!!"]],
+    [
+      [
+        "Wrong!",
+        "I knew you didn't know!", 
+        "Go back and try again."
+      ],
+      [
+        "Fine.", 
+        "You were correct.", 
+        "But... the next one is gonna stump you for sure."
+      ]
+    ],
 
-    [["some", "artistic", "sins"], ["i can't", "do", "this"]],
+    [
+      [
+        "Ha! I knew it was just a fluke.", 
+        "Maybe if you try again you'll figure it out."
+      ],
+      [
+        "No way! You actually got it!", 
+        "Either you know more than I thought...", 
+        "Or, you're learning.",
+        "This isn't good.",
+        "Let's make things a little harder then!"
+      ]
+    ],
 
-    [["when you show up", "i will kill", "god"], ["albequrque", "i live at 409 S monegro st", "christ"]],
+    [
+      [
+        "GREAT!", 
+        "Phew, I was actually scared you were getting it for a minute there.",
+        "I'll let you try again though."
+      ],
+      [
+        "ARGH!", 
+        "How did you get here!", 
+        "This is where you'll fail for sure."
+      ]
+    ],
 
-    [["support my business", "corks", "anfweljnfewl"], ["never!", "what singul behavior", "erwnwejfnjen ,r"]],
+    [
+      [
+        "Ha!", 
+        "Luck will only get you so far in life. ", 
+        "Scurry on back now and try again."
+      ],
+      [
+        "Grrrrrr.", 
+        "You got this far...", 
+        "But I won't let you get any further!"
+      ]
+    ],
 
-    [["asdnajd,sn,jqawndj", "arkadyevich", "nlasnsakd"], ["someone!", "stunned my hand", "mejtb krunch"]],
+    [
+      [
+        "Whew.", 
+        "That was close.", 
+        "But too bad for YOU!",
+        "Because that was WRONG!",
+        "Try again."
+      ],
+      [
+        "NO!", 
+        "You can't be getting everything right.", 
+        "You will NOT be getting through every single level I have prepared for you."
+      ]
+    ],
 
-    [["so, you've come to me", "on the day of my"], ["trick god", "never!", "just kidding"]],
-  
+    [
+      [
+        "HA!", 
+        "Nice try!", 
+        "I guess you didn't get my lesson then...",
+        "Time to try again!"
+      ],
+      [
+        "NOOO!!!", 
+        "THIS ISN'T POSSIBLE!!!", 
+        "YOU WON!!!"
+      ]
+    ]
   ];
   
-  epilogue = ["art", "I CANT BELIVE THIS", "HOW COULD YOU!?!?!", "YOULL NEVER GET ME ALIVE"];
+  epilogue = ["I CANT BELIVE THIS", "HOW COULD YOU!?!?!", "YOULL NEVER GET ME ALIVE"];
   
   lastLines = ["WHAT NONSENSE--", "ARGHHHH", "NOOOO!!!!!"];
   
