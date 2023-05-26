@@ -9,7 +9,7 @@ CodeEditor.prototype.play = function(fileNames, fileData) {
     
     translate(600, 0);
   
-    fill(84, 94, 102);
+    fill(60, 65, 75);
     noStroke();
     rect(0, 0, 600, 600);  
   
@@ -18,10 +18,10 @@ CodeEditor.prototype.play = function(fileNames, fileData) {
     this.xSpacing = 600 / (fileNames.length);
     
     noStroke();
-    fill(127, 145, 148);
+    fill(100, 100, 110);
     rect(this.selectedFile * this.xSpacing, 0, this.xSpacing, 80, 10);    
     
-    fill(127, 145, 148);
+    fill(100, 100, 110);
     rect(0, 45, 600, 600);
     
   

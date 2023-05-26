@@ -7,7 +7,7 @@ function Pawn(x, y) {
     
     this.targetX = this.x;
   
-    this.sprite = loadImage("level0/wP.png");
+    this.sprite = loadImage("assets/level0/wP.png");
 }
 
 Pawn.prototype.act = function(rooks) {
@@ -36,7 +36,7 @@ function Rook(x, y) {
     
     this.targetY = 525;
   
-    this.sprite = loadImage("level0/bR.png");
+    this.sprite = loadImage("assets/level0/bR.png");
 }
 
 Rook.prototype.act = function() {
@@ -75,9 +75,9 @@ Level0.prototype.play = function(keys) {
         for(let j = 0; j < 8; j ++) {
             
             if((i + j) % 2 == 1) {
-                fill(30, 30, 45);
+                fill(50, 50, 70);
             } else {
-                fill(80, 80, 100);
+                fill(30, 30, 40);
             }
             
             rect(i*75, j*75, 75, 75);

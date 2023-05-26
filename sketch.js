@@ -6,6 +6,10 @@ function draw() {
 
       codeEditor.play(fileNames[level], fileData[level]);
 
+      strokeWeight(6);
+      stroke(0);
+      line(600, 0, 600, 600);
+      
       if (levels[level].win) {
 
         frame = 0;

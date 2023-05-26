@@ -2,11 +2,11 @@ function Dust(x, y) {
     this.x = x;
     this.y = y;
 
-    this.size = Math.random()*30 + 1;
+    this.size = Math.random()*20 + 10;
 }
 
 Dust.prototype.show = function() {
-    fill(255, 255, 0, 100);
+    fill(0, 0, 0, 125);
     noStroke();
     ellipse(this.x, this.y, this.size, this.size);
 };
@@ -20,6 +20,8 @@ function Vacuum(x, y) {
     this.y = y;
     
     this.vel = 0;
+
+    this.sprite = loadImage("assets/level2/vacuum cleaner.png");
     
 }
 
@@ -30,7 +32,7 @@ Vacuum.prototype.act = function(keys, dust) {
     
     if(keys[87]) this.vel ++;
     
-    if(this.vel > 10) this.vel = 10;
+    if(this.vel > 7) this.vel = 7;
     
     if(!keys[68] && !keys[65]) this.omega *= 0.8;
     if(!keys[87]) this.vel *= 0.9;
@@ -82,11 +84,9 @@ Vacuum.prototype.act = function(keys, dust) {
     push();
     
     translate(this.x, this.y);
-    rotate(this.theta);
-    
-    fill(155);
-    
-    rect(-80, -20, 80, 40);  
+    rotate(this.theta - 90);
+        
+    image(this.sprite, -20, -80, 40, 80);
     
     pop();
     
@@ -97,25 +97,36 @@ function Level2() {
   this.p = new Vacuum(width/2, height/2);
 
   this.dust = [];
-  for(let i = 0; i < 2000; i++) {
+  for(let i = 0; i < 1500; i++) {
       this.dust.push(new Dust(Math.random()*580 + 10, Math.random()*580 + 10 ));   
   }
   
   this.win = false;
   
-  this.keyX = Math.random() * 590 + 5;
-  this.keyY = Math.random() * 590 + 5;
+  this.keyX = Math.random() * 550 + 25;
+  this.keyY = Math.random() * 550 + 25;
+
+  for(let i = 0; i < 40; i++) {
+    this.dust.push(new Dust(this.keyX + Math.random()*64, this.keyY + Math.random()*64));
+  }
+
+  this.keySprite = loadImage("assets/key.png");
+
+  this.bg = loadImage("assets/level2/carpet.jpg");
   
 }
 
 Level2.prototype.play = function(keys) {
     
-    background(0);
-   
+    //background(200,90,0);
   
-    fill(255, 255, 0, 200);
-    rect(this.keyX, this.keyY, 20, 20);
+    image(this.bg, 0, 0, 600, 600);
+
+    //fill(255, 255, 0, 200);
+    //rect(this.keyX, this.keyY, 20, 20);
   
+    image(this.keySprite, this.keyX, this.keyY);
+
     for(var i = 0; i < this.dust.length; i++) {
         this.dust[i].show();   
     }

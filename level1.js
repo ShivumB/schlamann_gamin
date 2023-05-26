@@ -1,26 +1,28 @@
-function Bullet(r, theta) {
+function Bullet(r, theta, x, y) {
   
-    this.r = r;
+    this.initX = x;
+    this.initY = y;
+  
     this.theta = theta;
+    this.r = r;
     
-    this.speed = 50;
+    this.speed = 12;
     
     this.broken = false;
+  
+    this.sprite = loadImage("assets/level1/droplet.png");
     
 }
 
-Bullet.prototype.act = function(targets, p) {
+Bullet.prototype.act = function(targets) {
 
     this.r += this.speed;
     
-    this.speed --;
-    
-    
-    let x = p.x + this.r * cos(this.theta);
-    let y = p.y + this.r * sin(this.theta);
+    let x = this.initX + this.r * cos(this.theta);
+    let y = this.initY + this.r * sin(this.theta);
     
     for(let i = targets.length - 1; i >= 0; i--) {
-        if(Math.abs(x - targets[i].x) < 40 && Math.abs(y - targets[i].y) < 40) {
+        if(checkCollision(x, y, 30, 30, this.theta, targets[i].x + 20, targets[i].y + 20, 40, 40)) {
             targets[i].broken = true; 
             this.broken = true;
         }
@@ -29,11 +31,12 @@ Bullet.prototype.act = function(targets, p) {
     push();
     
     translate(x, y);
-    rotate(this.theta);
+    rotate(this.theta - 90);
+  
+    //rect(0, -5, 20, 10);
     
-    fill(0);
-    rect(0, -5, 20, 10);
-    
+    image(this.sprite, -15, -15, 30, 30);
+  
     pop();
 
 };
@@ -46,9 +49,14 @@ function Gun() {
     
     this.x = 50;
     this.y = 550;
+
+    this.width = 100;
+    this.height = 50;
     
     this.velX = 0;
     this.velY = 0;
+  
+    this.sprite = loadImage("assets/level1/watergun.png");
 }
 
 Gun.prototype.act = function(keys, bullets) {
@@ -65,21 +73,21 @@ Gun.prototype.act = function(keys, bullets) {
     
     if(keys[75] && this.timer <= 0) {
         this.shoot(bullets);
-        this.timer = 5;
+        this.timer = 10;
     }
     
-    if(keys[65]) this.velX --;
-    if(keys[68]) this.velX++;
-    if(keys[87]) this.velY --;
-    if(keys[83]) this.velY ++;
+    if(keys[65]) this.velX -= 0.5;
+    if(keys[68]) this.velX += 0.5;
+    if(keys[87]) this.velY -= 0.5;
+    if(keys[83]) this.velY += 0.5;
     
     if(!keys[65] && !keys[68]) this.velX *= 0.8;
     if(!keys[87] && !keys[83]) this.velY *= 0.8;
     
-    if(this.velX > 10) this.velX = 10;
-    if(this.velX < -10) this.velX = -10;
-    if(this.velY > 10) this.velY = 10;
-    if(this.velY < -10) this.velY = -10;
+    if(this.velX > 3) this.velX = 3;
+    if(this.velX < -3) this.velX = -3;
+    if(this.velY > 3) this.velY = 3;
+    if(this.velY < -3) this.velY = -3;
     
     this.x += this.velX;
     this.y += this.velY;
@@ -99,16 +107,14 @@ Gun.prototype.act = function(keys, bullets) {
     
     rotate(this.theta);
     
-    fill(255, 0, 0, 100);
-    rect(-30, -10, 60, 10);
-    rect(-30, 0, 10, 10);
+    image(this.sprite, -this.width/2,  -this.height/2, this.width, this.height);
   
     pop();
     
 };
 
 Gun.prototype.shoot = function(bullets) {
-    bullets.push(new Bullet(0, this.theta));
+    bullets.push(new Bullet(0, this.theta, this.x, this.y));
 };
 
 function Target(x, y) {
@@ -141,14 +147,14 @@ Target.prototype.act = function(player, safeZones) {
     if(this.y > 600) this.y = 600;
     if(this.y < 0) this.y = 0;
     
-    if(Math.abs(this.x - player.x) < 30 && Math.abs(this.y - player.y) < 30) {
+    if(checkCollision(player.x, player.y, player.width, player.height, player.theta, this.x + 20, this.y + 20, 40, 40)) {
         player.x = 75;
         player.y = 525;
     }
 
      for(let i = 0; i < safeZones.length; i++) {
         
-        if(safeZones[i].x + 200 > this.x && safeZones[i].x < this.x + 40 && safeZones[i].y + 200 > this.y && safeZones[i].y < this.y + 40) {
+        if(safeZones[i].x + safeZones[i].width > this.x && safeZones[i].x < this.x + 40 && safeZones[i].y + safeZones[i].height > this.y && safeZones[i].y < this.y + 40) {
             
             this.x = Math.random()*50 + height/2;
             this.y = Math.random()*50 + width/2;
@@ -157,7 +163,7 @@ Target.prototype.act = function(player, safeZones) {
         
     }   
   
-    fill(0, 0, 255, 100);
+    fill(255, 0, 0, 100);
     stroke(0);
     rect(this.x, this.y, 40, 40);
     
@@ -166,12 +172,15 @@ Target.prototype.act = function(player, safeZones) {
 function SafeZone(x, y) {
   this.x = x;
   this.y = y;
+
+  this.width = 210;
+  this.height = 210;
 }
 
 SafeZone.prototype.act = function() {    
     noStroke();
-    fill(0,255,255,150);
-    rect(this.x, this.y, 200, 200); 
+    fill(0,0,255,100);
+    rect(this.x, this.y, this.width, this.height); 
 };
 
 function Level1() {
@@ -181,11 +190,13 @@ function Level1() {
   this.bullets = [];
   
   this.targets = [];
-  for(var i = 0; i < 25; i++) {
+  for(var i = 0; i < 250; i++) {
       this.targets.push(new Target(Math.random()*580 + 10, Math.random()*580 + 10));   
   }
   
-  this.safeZones = [new SafeZone(0,400), new SafeZone(400,0)];  
+  this.safeZones = [new SafeZone(0,390), new SafeZone(390,0)];  
+  
+  this.keySprite = loadImage("assets/key.png");
   
   this.win = false;
   
@@ -194,7 +205,14 @@ function Level1() {
 Level1.prototype.play = function(keys) {
 
     background(255);
-    background(255, 255, 0, 100);
+    background(0, 0, 0, 90);
+
+    stroke(0, 50);
+    strokeWeight(1);
+    for(let i = 0; i < 600; i += 30) {
+        line(i, 0, i, 600);
+        line(0, i, 600, i);
+    }
     
     for(let i = this.bullets.length - 1; i >= 0; i--) {
         
@@ -205,7 +223,7 @@ Level1.prototype.play = function(keys) {
         
         this.bullets[i].act(this.targets, this.p); 
         
-        if(this.bullets[i].r > 450) {
+        if(this.bullets[i].r > 600) {
             this.bullets.splice(i, 1);   
         }
     }
@@ -228,13 +246,13 @@ Level1.prototype.play = function(keys) {
     
     this.p.act(keys, this.bullets);
   
-    if(Math.abs(this.p.x - 480) < 50 && Math.abs(this.p.y - 80) < 50) {
+    if(checkCollision(this.p.x, this.p.y, this.p.width, this.p.height, this.p.theta, 480 + 30, 80 + 30, 60, 60)) {
       this.win = true;
     }
   
     fill(255, 255,0);
-    rect(480, 80, 40, 40);
-
+    
+    image(this.keySprite, 480, 80);
 }
 
 Level1.prototype.handleKeyPressed = function(){};
