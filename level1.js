@@ -10,7 +10,7 @@ function Bullet(r, theta, x, y) {
     
     this.broken = false;
   
-    this.sprite = loadImage("assets/level1/droplet.png");
+    this.sprite = loadImage("assets/images/level1/droplet.png");
     
 }
 
@@ -56,7 +56,7 @@ function Gun() {
     this.velX = 0;
     this.velY = 0;
   
-    this.sprite = loadImage("assets/level1/watergun.png");
+    this.sprite = loadImage("assets/images/level1/watergun.png");
 }
 
 Gun.prototype.act = function(keys, bullets) {
@@ -196,7 +196,7 @@ function Level1() {
   
   this.safeZones = [new SafeZone(0,390), new SafeZone(390,0)];  
   
-  this.keySprite = loadImage("assets/key.png");
+  this.keySprite = loadImage("assets/images/key.png");
   
   this.win = false;
   

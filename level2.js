@@ -21,7 +21,7 @@ function Vacuum(x, y) {
     
     this.vel = 0;
 
-    this.sprite = loadImage("assets/level2/vacuum cleaner.png");
+    this.sprite = loadImage("assets/images/level2/vacuum cleaner.png");
     
 }
 
@@ -110,9 +110,9 @@ function Level2() {
     this.dust.push(new Dust(this.keyX + Math.random()*64, this.keyY + Math.random()*64));
   }
 
-  this.keySprite = loadImage("assets/key.png");
+  this.keySprite = loadImage("assets/images/key.png");
 
-  this.bg = loadImage("assets/level2/carpet.jpg");
+  this.bg = loadImage("assets/images/level2/carpet.jpg");
   
 }
 

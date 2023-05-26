@@ -95,7 +95,7 @@ function setup() {
   fileData = [
     [
       //level 0
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n"
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
 
       "class Game {\n\t// other variables and methods not shown\n\n\tprivate Pawn pawn = new Pawn();\n\tprivate boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tpawn.move();\n\t\t\tif (proximity(pawn, enemies) == 0)\n\t\t\t\treset();\n\t\t\tif (proximity(pawn, key) == 0)\n\t\t\t\twin = true;\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
 
@@ -352,7 +352,7 @@ function setup() {
     [300, 610],
   ];
   
-  prisonbg = loadImage("assets/prisonbg.png");
+  prisonbg = loadImage("assets/images/prisonbg.png");
   
 }
 

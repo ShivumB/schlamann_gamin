@@ -121,7 +121,7 @@ function Hammer() {
 
     this.win = false;
 
-    this.sprite = loadImage("assets/level3/hammer.png");
+    this.sprite = loadImage("assets/images/level3/hammer.png");
 
     this.theta = 0;
     this.omega = 0;
@@ -199,14 +199,14 @@ function Level3() {
 
     this.moleSprites = [];
     for(let i = 0; i < 6; i++) {
-        this.moleSprites.push(loadImage("assets/level3/mole" + i + ".png"));
+        this.moleSprites.push(loadImage("assets/images/level3/mole" + i + ".png"));
     }
 
-    this.moleSprites.push(loadImage("assets/key.png"));
+    this.moleSprites.push(loadImage("assets/images/key.png"));
 
-    this.bgClouds = loadImage("assets/level3/bgClouds.png");
-    this.bgSea = loadImage("assets/level3/bgSea.png");
-    this.bgGrass = loadImage("assets/level3/bgGrass.png");
+    this.bgClouds = loadImage("assets/images/level3/bgClouds.png");
+    this.bgSea = loadImage("assets/images/level3/bgSea.png");
+    this.bgGrass = loadImage("assets/images/level3/bgGrass.png");
 
     this.bgX = 0;
 }

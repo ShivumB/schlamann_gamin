@@ -7,7 +7,7 @@ function Pawn(x, y) {
     
     this.targetX = this.x;
   
-    this.sprite = loadImage("assets/level0/wP.png");
+    this.sprite = loadImage("assets/images/level0/wP.png");
 }
 
 Pawn.prototype.act = function(rooks) {
@@ -36,7 +36,7 @@ function Rook(x, y) {
     
     this.targetY = 525;
   
-    this.sprite = loadImage("assets/level0/bR.png");
+    this.sprite = loadImage("assets/images/level0/bR.png");
 }
 
 Rook.prototype.act = function() {
@@ -64,7 +64,7 @@ function Level0() {
   
   this.win = false;
   
-  this.keySprite = loadImage("assets/key.png");
+  this.keySprite = loadImage("assets/images/key.png");
   
 }
 
