@@ -83,9 +83,9 @@ function setup() {
 
     ["Main.java", "Game.java", "Toy.java", "Watergun.java"],
 
-    ["Main.java", "Game.java", "DogGame.java", "Dog.java"],
-
     ["Main.java", "Game.java", "VacuumGame.java", "Vacuum.java"],
+
+    ["Main.java", "Game.java", "DogGame.java", "Dog.java"],
 
     ["Main.java", "Game.java", "HammerGame.java", "Hammer.java"],
 
@@ -115,17 +115,6 @@ function setup() {
 
     [
       //level 2
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tDogGame g = new DogGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
-      
-      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Dog dog = new Dog();\n\tprotected Lava[] lava = { ... };\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, lava) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
-      
-      "class DogGame {\n\t// other variables and methods not shown\n\n\tDogGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“s”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“d”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“l”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n}\n",
-
-      "class Dog {\n\t// other variables and methods not shown\n\nDog() { ... }\n\n\tvoid left() {\n\t\tthis.velX--;\n\t}\n\n\tvoid right() {\n\t\tthis.velX++;\n\t}\n\n  \tvoid jump() {\n\t\tif(this.y == 0)\n\t\t\tthis.velY = -15;\n\t}\n}\n"
-    ],
-
-    [
-      //level 3
       "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new VacuumGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
       
       "class Game {\n\t// other variables and methods not shown\n\n\tprotected Vacuum robot = new Vacuum();\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile (true) {\n\t\t\tif (getKeysPressed().contains(“k”))\n\t\t\t\trobot.move();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
@@ -133,6 +122,17 @@ function setup() {
       "class VacuumGame extends Game {\n\t// other variables and methods not shown\n\n\tVacuumGame() { ... }\n\t\n\tvoid instantWin() {\n\t\twin = true;\n\t}\n}\n",
 
       "class Vacuum {\n\t// other variables and methods not shown\n\n\tVacuum() { ... }\n\n\tvoid move() {\n\t\t...\n\t}\n}\n"
+    ],
+
+    [
+      //level 3
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tDogGame g = new DogGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      
+      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Dog dog = new Dog();\n\tprotected Lava[] lava = { ... };\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, lava) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+      
+      "class DogGame {\n\t// other variables and methods not shown\n\n\tDogGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“s”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“d”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“l”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n}\n",
+
+      "class Dog {\n\t// other variables and methods not shown\n\nDog() { ... }\n\n\tvoid left() {\n\t\tthis.velX--;\n\t}\n\n\tvoid right() {\n\t\tthis.velX++;\n\t}\n\n  \tvoid jump() {\n\t\tif(this.y == 0)\n\t\t\tthis.velY = -15;\n\t}\n}\n"
     ],
 
     [
@@ -291,7 +291,7 @@ function setup() {
       ],
       [
         "ARGH!", 
-        "How did you get here!", 
+        "How did you get that?!", 
         "This is where you'll fail for sure."
       ]
     ],
