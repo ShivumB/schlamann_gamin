@@ -156,36 +156,99 @@ function setup() {
   ];
 
   questions = [
-    ["so", "you", "beat", "the", "first", "level huh you silly little goose well you know what that's great for you and all"],
+    [
+      "Oh, you passed that level!",
+      "I don't need to worry, though, because that was the easiest level.",
+      "Maybe you didn't know what you were doing but got through it anyway.",
+      "We'll see if you actually get to pass…",
+      "What is the superclass of the Game class?"
+    ],
 
-    ["lemon", "tangerine", "ar", "sun"],
+    [
+      "What? You figured it out again?!",
+      "It's less likely… but maybe it was another fluke!",
+      "Which method was inherited by the Watergun class?"
+    ],
 
-    ["am", "ak", "albert", "can"],
+    [
+      "Unbelievable! This isn't right!",
+      "You won't ruin my plans for world domination!",
+      "Maybe this'll stop you:",
+      "Which of the following was tested in this game?"
+    ],
 
-    ["so", "lol", "never", "engorge"],
+    [
+      "How is this possible?!",
+      "You shouldn't know anything about polymorphism and inheritance!",
+      "If you passed that test then you must be able to answer this question…",
+      "When you were finding the keys for controlling the Vacuum, you should have noticed that the instantWin method of the VacuumGame class doesn't work. Which of the following changes to the code would have made it accessible?"
+    ],
 
-    ["seminar", "samoa", "cookie", "yes"],
+    [
+      "Oh no, no, no…",
+      "You can't be flying through these levels.",
+      "You will not be able to unlock all those prison doors. ",
+      "I won't allow it. ",
+      "I will stop you!",
+      "Which constructor does the code \"Game g = new HammerGame(\"k\",\"o\");\" call?"
+    ],
 
-    ["letters", "art", "truthfully", "you rock"],
+    [
+      "NO!!!",
+      "WHAT HAVE YOU DONE?!",
+      "FINE!!! I'll give you my hardest question yet…",
+      "Which statement about subclass methods is false?"
+    ],
   ];
 
   answers = [
-    ["yama", "oops", "inheritance", "object class"],
+    [
+      "Nothing",
+      "Player class",
+      "Object class",
+      "Game class"
+    ],
 
-    ["so stupid", "artistic", "singul", "crazy"],
+    [
+      "shoot()",
+      "rotate()",
+      "run()",
+      "Toy()"
+    ],
 
-    ["shunned", "god", "lmao", "lmafao"],
+    [
+      "Overridden methods",
+      "Inaccessible methods",
+      "Overloading methods",
+      "Inheriting constructors"
+    ],
 
-    ["godless", "puppies", "nothign", "lick"],
+    [
+      "Set 'win' to `true` instead of false in its declaration in the Game class",
+      "Change the declaration in the Main class to \"VacuumGame g = new VacuumGame()\"",
+      "Change the return type of instantWin() to something that's not void",
+      "Change the declaration in the Main class to \"VacuumGame g = new Game()\""
+    ],
 
-    ["eagerness", "short", "exchange", "stranger"],
+    [
+      "Game()",
+      "Object()",
+      "Main()",
+      "HammerGame()"
+    ],
 
-    ["while", "energy", "traer", "jos"],
+    [
+      "If Class1 is a superclass of Class2, and Class2 is a superclass of Class3, and Class2 has no overridden methods, Class3 inherits all the public methods of Class1. ",
+      "A public method in a subclass that is not in its superclass is not accessible by the superclass.",
+      "A private method in a superclass is not inherited by its subclass.",
+      "Two different subclasses of the same superclass inherit the same methods of the superclass.",
+      "Writing two subclass methods with the same name but different parameters is called method overriding."
+    ],
   ];
 
   selectedAnswer = [0, 0];
 
-  correctAnswers = [0, 0, 0, 0, 0, 0];
+  correctAnswers = [2, 1, 0, 1, 3, 4];
 
   answeredCorrectly = 0;
   answeredQuestion = false;
