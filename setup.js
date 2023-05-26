@@ -45,8 +45,8 @@ function setup() {
 
   textFont(loadFont('assets/fonts/VT323/VT323-Regular.ttf'));
 
-  scene = "game";
-  level = 3;
+  scene = "intro";
+  level = 0;
 
   levels = [];
   levels.push(new Level0());
