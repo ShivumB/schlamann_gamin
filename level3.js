@@ -23,10 +23,10 @@ Mole.prototype.show = function (moleSprites) {
 
         if (this.frame < 20) {
 
-            image(moleSprites[Math.floor(this.frame / 4)],this.x - 10,this.y - 5, 60, 60);
+            image(moleSprites[Math.floor(this.frame / 4)],this.x,this.y, 60, 60);
 
         } else if (this.frame < 80) {
-            image(moleSprites[5],this.x - 10,this.y - 5, 60, 60);
+            image(moleSprites[5],this.x,this.y, 60, 60);
 
         } else if(frame < 100) {
 
@@ -45,7 +45,7 @@ Mole.prototype.show = function (moleSprites) {
             this.y += 0.15*(400 - this.y);
         }
 
-        image(moleSprites[6], this.x - 5, this.y, 60, 60);
+        image(moleSprites[6], this.x + 5, this.y + 5, 60, 60);
     }
 
     this.frame++;
@@ -59,7 +59,7 @@ function MoleSystem(holeCount) {
     let spacing = 600 / (holeCount + 1);
 
     for (let i = 0; i < holeCount; i++) {
-        this.moles.push(new Mole(i * spacing + 75, 380));
+        this.moles.push(new Mole(i * spacing + 75 - 10, 380 - 5));
     }
 
 
@@ -111,7 +111,7 @@ MoleSystem.prototype.act = function (moleSprites) {
 
 function Hammer() {
     this.x = 40;
-    this.y = 200;
+    this.y = 300;
 
     this.targetX = 0;
 
@@ -120,17 +120,40 @@ function Hammer() {
     this.frame = 0;
 
     this.win = false;
+
+    this.sprite = loadImage("assets/level3/hammer.png");
+
+    this.theta = 0;
+    this.omega = 0;
 }
 
 Hammer.prototype.smash = function () {
 
-    if (this.frame < 8) {
-        this.y += (350 - this.y) * 0.5;
+    push();
+
+    translate(this.x, this.y);
+
+    rotate(this.theta);
+
+    image(this.sprite, -21.5, -60, 43, 60);
+
+   if (this.frame < 20) {
+
+        this.theta += 90; 
+        this.y += 0.2*(500 - this.y);
+
+    } else if(this.frame < 40) {
+        this.theta += 2;
+
+    } else if(this.frame < 60)
+        
+        this.theta -= 0.5;
+    if (this.frame < 100) {
+        this.theta += 0.5*(0 - this.theta);
+        this.y += 0.2*(300 - this.y);
     }
 
-    if (this.frame < 20) {
-        this.y += (200 - this.y) * 0.2;
-    }
+    pop();
 
     this.frame++;
 
@@ -144,15 +167,18 @@ Hammer.prototype.act = function (moles) {
 
     this.x += (this.targetX - this.x) * 0.2;
 
-    fill(0);
-    rect(this.x, this.y, 40, 40);
-
     this.smash();
 
     for (let i = 0; i < moles.length; i++) {
 
-        if (moles[i].id > 0 && this.x + 40 > moles[i].x && this.x < moles[i].x + 40 && this.y + 40 > moles[i].y && this.y < moles[i].y + 40) {
+        //collision
+        let centerX = this.x + 43*cos(90 - this.theta) * 7/8;
+        let centerY = this.y - 60*sin(90 - this.theta) * 7/8;
 
+        let distX = centerX - (moles[i].x + 30);
+        let distY = centerY - (moles[i].y + 30);
+
+        if (distX * distX + distY * distY < 60*60) {
 
             if (moles[i].id == 2) {
                 this.win = true;
@@ -216,13 +242,13 @@ Level3.prototype.handleKeyPressed = function () {
     if (keyCode === 65) {
         this.p.selectedMole = Math.max(0, this.p.selectedMole - 1);
 
-        this.p.targetX = this.p.selectedMole * spacing + 75;
+        this.p.targetX = this.p.selectedMole * spacing + 75 - 40;
     }
 
     if (keyCode === 68) {
 
         this.p.selectedMole = Math.min(4, this.p.selectedMole + 1);
-        this.p.targetX = this.p.selectedMole * spacing + 75;
+        this.p.targetX = this.p.selectedMole * spacing + 75 - 40;
     }
 
     if (keyCode === 83) {

@@ -190,7 +190,7 @@ function Level1() {
   this.bullets = [];
   
   this.targets = [];
-  for(var i = 0; i < 250; i++) {
+  for(var i = 0; i < 125; i++) {
       this.targets.push(new Target(Math.random()*580 + 10, Math.random()*580 + 10));   
   }
   
