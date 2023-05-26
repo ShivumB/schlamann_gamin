@@ -1,42 +1,42 @@
-var scene;
-var level;
+let scene;
+let level;
 
-var levels;
+let levels;
 
-var keys;
+let keys;
 
-var frame;
+let frame;
 
-var selectedTextOption;
-var textOptions;
+let selectedTextOption;
+let textOptions;
 
-var prologue;
-var dialoguePage;
-var dialogueFrag;
+let prologue;
+let dialoguePage;
+let dialogueFrag;
 
-var codeEditor;
-var fileNames;
-var fileData;
+let codeEditor;
+let fileNames;
+let fileData;
 
-var questionY = 400;
-var showAnswers = false;
+let questionY = 400;
+let showAnswers = false;
 
-var questions;
+let questions;
 
-var answers;
-var selectedAnswer;
-var correctAnswers;
-var answeredCorrectly;
-var answeredQuestion;
+let answers;
+let selectedAnswer;
+let correctAnswers;
+let answeredCorrectly;
+let answeredQuestion;
 
-var responses;
+let responses;
 
-var epilogue;
-var lastLines;
+let epilogue;
+let lastLines;
 
-var spritesPos;
+let spritesPos;
 
-var prisonbg;
+let prisonbg;
 
 function setup() {
   createCanvas(1200, 600);
@@ -76,62 +76,82 @@ function setup() {
   codeEditor = new CodeEditor();
   
   fileNames = [
-    ["main.java", "pawn.java"],
+    ["Main.java", "Game.java", "Pawn.java"],
 
-    ["main.java", "toy.java", "watergun.java"],
+    ["Main.java", "Game.java", "Toy.java", "Watergun.java"],
 
-    ["main.java", "animal.java", "dog.java"],
+    ["Main.java", "Game.java", "DogGame.java", "Dog.java"],
 
-    ["main.java", "robot.java", "vacuum.java"],
+    ["Main.java", "Game.java", "VacuumGame.java", "Vacuum.java"],
 
-    ["main.java", "tool.java", "hammer.java"],
+    ["Main.java", "Game.java", "HammerGame.java", "Hammer.java"],
 
-    ["main.java", "panda.java", "buffPanda.java"],
+    ["Main.java", "Game.java", "Panda.java", "BuffPanda.java"],
   ];
 
   fileData = [
     [
       //level 0
-      "public class Main {\npublic static void main(String[] args) {\nPawn player = new Pawn();\nwhile(true) {\nplayer.act();\nif(player.touches(orb)) win = true;\n}\n}\n}",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n"
 
-      "public class Pawn {\npublic Pawn() {\n...\n}\nprivate void move() {\nif(pressedKeys.get(‘R’) {\nthis.x += 40;\n}\n}\n}",
+      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Pawn pawn = new Pawn();\n\tprivate boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tpawn.move();\n\t\t\tif (proximity(pawn, enemies) == 0)\n\t\t\t\treset();\n\t\t\tif (proximity(pawn, key) == 0)\n\t\t\t\twin = true;\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+
+      "class Pawn {\n\t// other variables and methods not shown\n\n\tprivate int x = 0;\n\tprivate int y = 300;\n\t\n\tPawn() {}\n\n\tvoid move() {\n\t\tthis.x += 40;\n\t}\n}\n",
     ],
 
     [
       //level 1
-      "public class Main {\npublic static void main(String[] args) {\nWatergun player = new Watergun();\nwhile(true) {\nplayer.act();\nif(winCondition) return;\n}\n}\n}",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
 
-      "public class Toy extends GameObject {\npublic Toy() {\n//the super constructor takes two arguments - x and y position\nsuper(0, 200);\nthis.angle = 0;\n}\nprotected void rotate() {\nif(pressedKeys.get(‘O’) {\nangle++;\n}\nif(pressedKeys.get(‘P’) {\nangle--;\n}\n}\n}",
+      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Watergun watergun = new Watergun();\n\tprivate boolean win = false;\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“o”))\n\t\t\t\twatergun.rotate(true);\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\twatergun.rotate(true);\n\t\t\tif (getKeysPressed().contains(“q”))\n\t\t\t\twatergun.shoot();\n\t\t\tif (proximity(watergun, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
 
-      "",
+      "class Toy {\n\t// other variables and methods not shown\n\n\tToy() { ... }\n\n\tvoid rotate(boolean counterclockwise) {\n\t\tif (counterclockwise) angle++;\n\t\telse angle--;\n\t}\n}\n",
+
+      "class Watergun extends Toy {\n\t// other variables and methods not shown\n\n\tWatergun() { ... }\n\n\tvoid shoot() {\n\t\t...\n\t}\n}\n",
     ],
 
     [
       //level 2
-      "",
-      "",
-      "",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tDogGame g = new DogGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      
+      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Dog dog = new Dog();\n\tprotected Lava[] lava = { ... };\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, lava) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+      
+      "class DogGame {\n\t// other variables and methods not shown\n\n\tDogGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“s”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“d”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“l”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n}\n",
+
+      "class Dog {\n\t// other variables and methods not shown\n\nDog() { ... }\n\n\tvoid left() {\n\t\tthis.velX--;\n\t}\n\n\tvoid right() {\n\t\tthis.velX++;\n\t}\n\n  \tvoid jump() {\n\t\tif(this.y == 0)\n\t\t\tthis.velY = -15;\n\t}\n}\n"
     ],
 
     [
       //level 3
-      "",
-      "",
-      "",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new VacuumGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      
+      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Vacuum robot = new Vacuum();\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile (true) {\n\t\t\tif (getKeysPressed().contains(“k”))\n\t\t\t\trobot.move();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+      
+      "class VacuumGame extends Game {\n\t// other variables and methods not shown\n\n\tVacuumGame() { ... }\n\t\n\tvoid instantWin() {\n\t\twin = true;\n\t}\n}\n",
+
+      "class Vacuum {\n\t// other variables and methods not shown\n\n\tVacuum() { ... }\n\n\tvoid move() {\n\t\t...\n\t}\n}\n"
     ],
 
     [
       //level 4
-      "",
-      "",
-      "",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new HammerGame(“k”, “o”);\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      
+      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Hammer hammer = new Hammer();\n\tprotected Set<Enemy> enemies = new Set();\n\tprotected boolean win = false;\n\tprotected String moveKey;\n\tprotected String hitKey;\n\t\n\tGame(String moveKey, String hitKey) {\n\tthis.moveKey = moveKey;\n\tthis.hitKey = hitKey;\n}\n\n\tvoid addEnemy(Enemy e) {\n\t\tenemies.add(e);\n\t}\n\n\tvoid run() {\n\t\twhile (true) {\n\t\t\tif (getKeysPressed().contains(moveKey))\n\t\t\t\thammer.move();\n\t\t\tif (getKeysPressed().contains(hitKey))\n\t\t\t\thammer.hit();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n} \n",
+      
+      "class HammerGame extends Game {\n\t// other variables and methods not shown\n\n\tHammerGame() { ... }\n\n\tHammerGame() {\n\t\tsuper.moveKey = “r”;\n\t\tsuper.hitKey = “l”;\n\t}\n}\n",
+
+      "class Hammer {\n\t// other variables and methods not shown\n\nHammer() { ... }\t\n\n\tvoid move() {\n\t\t...\n\t}\n\n\tvoid hit() {\n\t\t...\n\t}\n}\n"
     ],
 
     [
       //level 5
-      "",
-      "",
-      "",
+      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      
+      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Panda panda = new BuffPanda();\n\tprivate boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tpanda.startCurlUps();\n\t\t\tif (getKeysPressed().contains(“q”))\n\t\t\t\tpanda.addCurlUps();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tpanda.addCurlUpsTimesTen();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+      
+      "class Panda {\n\t// other variables and methods not shown\n\n\tprivate int numCurlUps;\n\t\n\tPanda() { ... }\n\t\n\tvoid addCurlUp() {\n\t\tnumCurlUps++;\n\t}\n\n\tvoid addCurlUpsTimesTen() {\n\t\tnumPushUps += 10; \n\t}\n\n\tvoid startCurlUps() {\n\t\t...\n\t}\n}\n",
+
+      "class BuffPanda extends Panda {\n\t// other variables and methods not shown\n\n\tBuffPanda() { ... }\n\n\tvoid addCurlUpsTimesTen(int n) {\n\t\tnumCurlUps += n * 10;\n\t}\n}\n"
     ],
   ];
 
