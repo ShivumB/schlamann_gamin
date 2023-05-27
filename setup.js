@@ -45,7 +45,7 @@ function setup() {
 
   textFont(loadFont('assets/fonts/VT323/VT323-Regular.ttf'));
 
-  scene = "intro";
+  scene = "game";
   level = 0;
 
   levels = [];
@@ -77,7 +77,7 @@ function setup() {
   dialogueFrag = "";
 
   codeEditor = new CodeEditor();
-  
+
   fileNames = [
     ["Main.java", "Game.java", "Pawn.java"],
 
@@ -342,7 +342,7 @@ function setup() {
   epilogue = ["I CANT BELIVE THIS", "HOW COULD YOU!?!?!", "YOULL NEVER GET ME ALIVE"];
   
   lastLines = ["WHAT NONSENSE--", "ARGHHHH", "NOOOO!!!!!"];
-  
+
   spritesPos = [
     [300, -10],
     [600, -10],
@@ -351,21 +351,21 @@ function setup() {
     [600, 610],
     [300, 610],
   ];
-  
-  prisonbg = loadImage("assets/images/prisonbg.png");
-  
+
+  prisonbg = loadImage("assets/prisonbg.png");
+
 }
 
 function keyPressed() {
-  
+
   keys[keyCode] = true;
 
   if (scene == "game") {
     //make it prettier, handle in level object
     levels[level].handleKeyPressed();
-    
+
   } else if (scene == "start") {
-    
+
     if (keyCode == 38) selectedTextOption++;
     if (keyCode == 40) selectedTextOption--;
 
@@ -382,17 +382,17 @@ function keyPressed() {
         selectedTextOption = 0;
       }
     }
-    
+
   } else if (scene == "settings") {
-    
+
     if (keyCode == 13) {
       scene = "start";
       textOptions = ["talk to mr. schlamann", "options"];
       selectedTextOption = 0;
     }
-    
+
   } else if (scene == "prologue") {
-    
+
     if (keyCode == 13) {
       if (dialoguePage + 1 < prologue.length) {
         dialoguePage++;
@@ -401,21 +401,21 @@ function keyPressed() {
         scene = "game";
       }
     }
-    
+
   } else if (scene == "questions") {
-    
+
     if (keyCode == 13) {
-      
+
       if (!answeredQuestion && dialoguePage + 1 < questions[level].length) {
-        dialoguePage ++;
+        dialoguePage++;
         frame = 0;
-        
+
       } else if (!answeredQuestion) {
-        
+
         if (!showAnswers) {
           showAnswers = true;
         } else {
-          
+
           frame = 0;
           dialoguePage = 0;
           answeredQuestion = true;
@@ -425,22 +425,22 @@ function keyPressed() {
           } else {
             answeredCorrectly = 0;
           }
-          
+
         }
-        
+
       } else {
-        
+
         if (dialoguePage + 1 < responses[level][answeredCorrectly].length) {
-          
+
           dialoguePage++;
           frame = 0;
-                    
+
         } else {
-          
-          if(answeredCorrectly == 1) {
+
+          if (answeredCorrectly == 1) {
             level++;
           } else {
-            switch(level) {
+            switch (level) {
               case 0: levels[0] = new Level0(); break;
               case 1: levels[1] = new Level1(); break;
               case 2: levels[2] = new Level2(); break;
@@ -449,11 +449,15 @@ function keyPressed() {
               case 5: levels[5] = new Level5(); break;
             }
           }
-          
-          scene = "game";
+
+          if (level == 6) {
+            scene = "epilogue";
+          } else {
+            scene = "game";
+          }
         }
-        
-        
+
+
       }
     }
 
@@ -463,12 +467,12 @@ function keyPressed() {
       if (keyCode == 38 || keyCode == 40)
         selectedAnswer[0] = (selectedAnswer[0] + 1) % 2;
     }
-    
-  } else if(scene == "epilogue") {
-    
-    
+
+  } else if (scene == "epilogue") {
+
+
     if (keyCode == 13) {
-      
+
       if (dialoguePage + 1 < epilogue.length) {
         dialoguePage++;
         frame = 0;
@@ -477,10 +481,10 @@ function keyPressed() {
         dialoguePage = 0;
         scene = "end";
       }
-      
+
     }
-    
-    
+
+
   }
 }
 

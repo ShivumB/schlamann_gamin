@@ -29,14 +29,14 @@ Pawn.prototype.act = function(rooks) {
     image(this.sprite, this.x + 4, this.y + 4);
 };
 
-function Rook(x, y) {
+function Rook(x, y, sprite) {
   
     this.x = x;
     this.y = y;
     
     this.targetY = 525;
   
-    this.sprite = loadImage("assets/images/level0/bR.png");
+    this.sprite = sprite;
 }
 
 Rook.prototype.act = function() {
@@ -56,11 +56,12 @@ function Level0() {
   this.p = new Pawn(0, 4 * 75);
 
   this.rooks = [];
+  this.rookSprite = loadImage("assets/level0/bR.png");
   
-  this.rooks.push(new Rook(1*75, 0));
-  this.rooks.push(new Rook(3*75, 370));
-  this.rooks.push(new Rook(5*75, 500));
-  this.rooks.push(new Rook(6*75, 0));
+  this.rooks.push(new Rook(1*75, 0, this.rookSprite));
+  this.rooks.push(new Rook(3*75, 370, this.rookSprite));
+  this.rooks.push(new Rook(5*75, 500, this.rookSprite));
+  this.rooks.push(new Rook(6*75, 0, this.rookSprite));
   
   this.win = false;
   

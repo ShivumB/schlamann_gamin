@@ -1,4 +1,4 @@
-function Bullet(r, theta, x, y) {
+function Bullet(r, theta, x, y, sprite) {
   
     this.initX = x;
     this.initY = y;
@@ -10,7 +10,7 @@ function Bullet(r, theta, x, y) {
     
     this.broken = false;
   
-    this.sprite = loadImage("assets/images/level1/droplet.png");
+    this.sprite = sprite;
     
 }
 
@@ -56,10 +56,10 @@ function Gun() {
     this.velX = 0;
     this.velY = 0;
   
-    this.sprite = loadImage("assets/images/level1/watergun.png");
+    this.sprite = loadImage("assets/level1/watergun.png");
 }
 
-Gun.prototype.act = function(keys, bullets) {
+Gun.prototype.act = function(keys, bullets, bulletSprite) {
   
     if(keys[82]) this.omega -= 0.5;   
     if(keys[84]) this.omega += 0.5;
@@ -72,7 +72,7 @@ Gun.prototype.act = function(keys, bullets) {
     
     
     if(keys[75] && this.timer <= 0) {
-        this.shoot(bullets);
+        this.shoot(bullets, bulletSprite);
         this.timer = 10;
     }
     
@@ -113,8 +113,8 @@ Gun.prototype.act = function(keys, bullets) {
     
 };
 
-Gun.prototype.shoot = function(bullets) {
-    bullets.push(new Bullet(0, this.theta, this.x, this.y));
+Gun.prototype.shoot = function(bullets, bulletSprite) {
+    bullets.push(new Bullet(0, this.theta, this.x, this.y, bulletSprite));
 };
 
 function Target(x, y) {
@@ -127,7 +127,7 @@ function Target(x, y) {
     this.broken = false;
 }
 
-Target.prototype.act = function(player, safeZones) {
+Target.prototype.act = function(player, safeZones, bulletSprite) {
     
     this.velX += Math.random() - 0.5;
     this.velY += Math.random() - 0.5;
@@ -195,9 +195,10 @@ function Level1() {
   }
   
   this.safeZones = [new SafeZone(0,390), new SafeZone(390,0)];  
-  
-  this.keySprite = loadImage("assets/images/key.png");
-  
+    
+  this.keySprite = loadImage("assets/key.png");
+  this.bulletSprite = loadImage("assets/level1/droplet.png");
+
   this.win = false;
   
 }
@@ -244,7 +245,7 @@ Level1.prototype.play = function(keys) {
     }
     
     
-    this.p.act(keys, this.bullets);
+    this.p.act(keys, this.bullets, this.bulletSprite);
   
     if(checkCollision(this.p.x, this.p.y, this.p.width, this.p.height, this.p.theta, 480 + 30, 80 + 30, 60, 60)) {
       this.win = true;

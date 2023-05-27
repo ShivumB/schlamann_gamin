@@ -10,7 +10,6 @@ function Mole(x, y) {
     this.height = 0;
 
     this.broken = false;
-
 }
 
 Mole.prototype.show = function (moleSprites) {
@@ -204,20 +203,24 @@ function Level3() {
 
     this.moleSprites.push(loadImage("assets/images/key.png"));
 
-    this.bgClouds = loadImage("assets/images/level3/bgClouds.png");
-    this.bgSea = loadImage("assets/images/level3/bgSea.png");
-    this.bgGrass = loadImage("assets/images/level3/bgGrass.png");
+    this.bgClouds0 = loadImage("assets/level3/bgClouds0.png");
+    this.bgClouds1 = loadImage("assets/level3/bgClouds1.png");
+
+    this.bgSea = loadImage("assets/level3/bgSea.png");
+    this.bgGrass = loadImage("assets/level3/bgGrass.png");
 
     this.bgX = 0;
+
 }
 
 Level3.prototype.play = function (keys) {
 
-    image(this.bgClouds, this.bgX, 0);
-    image(this.bgClouds, this.bgX - 1400, 0);
+    image(this.bgClouds0, this.bgX, 0);
+    image(this.bgClouds1, this.bgX - 700, 0);
+    image(this.bgClouds0, this.bgX - 1400, 0);
 
-    if(this.bgX > 2200) {
-        this.bgX = 800;
+    if(this.bgX > 1400) {
+        this.bgX = 0;
     }
 
     this.bgX += 0.1;

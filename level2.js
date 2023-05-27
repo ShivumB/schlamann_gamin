@@ -117,14 +117,9 @@ function Level2() {
 }
 
 Level2.prototype.play = function(keys) {
-    
-    //background(200,90,0);
-  
+      
     image(this.bg, 0, 0, 600, 600);
 
-    //fill(255, 255, 0, 200);
-    //rect(this.keyX, this.keyY, 20, 20);
-  
     image(this.keySprite, this.keyX, this.keyY);
 
     for(var i = 0; i < this.dust.length; i++) {
