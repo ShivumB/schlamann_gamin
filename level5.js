@@ -90,7 +90,7 @@ function Level5Key(x, y) {
     this.x = x;
     this.y = y;
 
-    this.sprite = loadImage("assets/key.png");
+    this.sprite = loadImage("assets/images/key.png");
 
     this.win = false;
 
@@ -101,7 +101,7 @@ function Panda(x, y) {
     this.x = x;
     this.y = y;
 
-    this.sprites = [loadImage("assets/level5/panda0.png"), loadImage("assets/level5/panda1.png"), loadImage("assets/level5/panda2.png")];
+    this.sprites = [loadImage("assets/images/level5/panda0.png"), loadImage("assets/images/level5/panda1.png"), loadImage("assets/level5/panda2.png")];
 
     this.frame = 100;
 
@@ -140,7 +140,7 @@ function Level5() {
 
   this.win = false;
 
-  this.bg = loadImage("assets/level5/bg.png");
+  this.bg = loadImage("assets/images/level5/bg.png");
 }
 
 Level5.prototype.play = function(keys) {

@@ -56,7 +56,7 @@ function Level0() {
   this.p = new Pawn(0, 4 * 75);
 
   this.rooks = [];
-  this.rookSprite = loadImage("assets/level0/bR.png");
+  this.rookSprite = loadImage("assets/images/level0/bR.png");
   
   this.rooks.push(new Rook(1*75, 0, this.rookSprite));
   this.rooks.push(new Rook(3*75, 370, this.rookSprite));

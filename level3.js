@@ -203,11 +203,11 @@ function Level3() {
 
     this.moleSprites.push(loadImage("assets/images/key.png"));
 
-    this.bgClouds0 = loadImage("assets/level3/bgClouds0.png");
-    this.bgClouds1 = loadImage("assets/level3/bgClouds1.png");
+    this.bgClouds0 = loadImage("assets/images/level3/bgClouds0.png");
+    this.bgClouds1 = loadImage("assets/images/level3/bgClouds1.png");
 
-    this.bgSea = loadImage("assets/level3/bgSea.png");
-    this.bgGrass = loadImage("assets/level3/bgGrass.png");
+    this.bgSea = loadImage("assets/images/level3/bgSea.png");
+    this.bgGrass = loadImage("assets/images/level3/bgGrass.png");
 
     this.bgX = 0;
 

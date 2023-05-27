@@ -19,8 +19,8 @@ function Dog(x, y) {
     this.sprites = [[], []];
 
     for (let i = 0; i < 6; i++) {
-        this.sprites[0].push(loadImage("assets/level4/runR" + i + ".png"));
-        this.sprites[1].push(loadImage("assets/level4/runL" + i + ".png"));
+        this.sprites[0].push(loadImage("assets/images/level4/runR" + i + ".png"));
+        this.sprites[1].push(loadImage("assets/images/level4/runL" + i + ".png"));
     }
 
 }
@@ -136,7 +136,7 @@ function Level4Goal(x, y) {
     this.x = x;
     this.y = y;
 
-    this.sprite = loadImage("assets/key.png");
+    this.sprite = loadImage("assets/images/key.png");
 }
 
 Level4Goal.prototype.show = function () {
@@ -150,14 +150,14 @@ function Level4() {
     ];
 
     this.groundSprites = [];
-    for(let i = 0; i < 4; i++) this.groundSprites.push(loadImage("assets/level4/ground" + i + ".png"));
+    for(let i = 0; i < 4; i++) this.groundSprites.push(loadImage("images/level4/ground" + i + ".png"));
 
     this.p = new Dog(560, 520);
 
     this.blocks = [];
     this.spikes = [];
 
-    this.spikeSprite = loadImage("assets/level4/lava.png");
+    this.spikeSprite = loadImage("assets/images/level4/lava.png");
 
     this.goal;
 
@@ -181,7 +181,7 @@ function Level4() {
 
     this.win = false;
 
-    this.bg = loadImage("assets/level4/hell.png");
+    this.bg = loadImage("assets/images/level4/hell.png");
 
 }
 
