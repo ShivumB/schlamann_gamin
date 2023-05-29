@@ -12,6 +12,7 @@ function draw() {
         questionY = 400;
 
         if (level >= levels.length) scene = "epilogue";
+
       } else {
 
         levels[level].play(keys);
@@ -27,12 +28,13 @@ function draw() {
 
     case "intro":
 
-      image(prisonbg, 0, 0, 600, 600);
+      background(0);
 
       push();
 
       if (frame <= 50) {
-      } else if (frame > 50 && -2 * (frame - 50) > -3200) {
+
+      } else if (frame > 50 && -2 * (frame - 50) > -8400) {
 
         translate(-2 * (frame - 50), 0);
 
@@ -44,24 +46,44 @@ function draw() {
         selectedTextOption = 0;
       }
 
-      for (let i = 0; i < 6; i++) {
-        fill(255);
-        rect(i * 500 + 300, 250, 100, 100);
+      for(let i = 0; i < 7; i++) {
+        image(deepslate, 1200*i, 0);
       }
 
-      rect(7 * 500 + 300, 250, 50, 100);
+      background(0, 10);
+
+      for(let i = 0; i < 6; i++) {
+        image(cell, 1200 + 1200*i, 110);
+      }
+
+      image(pSprites[0], 1200 + 175, 110 + 155,  240, 240);
+      image(pSprites[1], 2400 + 200, 110 + 240);
+
+      push();
+      translate(3600 + 100, 110 + 310);
+      rotate(90);
+      image(pSprites[2], -160, -40, 160, 80);
+      pop();
+
+      image(pSprites[3], 4800 + 250, 110 + 120);
+      image(pSprites[4], 6000 + 300, 110 + 230, 128, 128);
+      image(pSprites[5][Math.floor(frame / 100) % 3], 7200 + 200, 110 + 115);
+
+      for(let i = 0; i < 6; i++) {
+        image(bars, 1200 + 1200*i, 110);
+      }
+
+      image(schlamann, 9000 - 200, 0);
 
       pop();
 
-      frame += 10;
+      frame += 4;
       break;
 
     case "start":
       background(0);
 
-      fill(255);
-      rect(600, 250, 50, 100);
-
+      image(schlamann, 400, 0);
 
       for (let i = 0; i < textOptions.length; i++) {
         if (i == selectedTextOption) {
@@ -87,10 +109,7 @@ function draw() {
     case "prologue":
       background(0);
 
-      fill(255);
-      stroke(0);
-      strokeWeight(1);
-      rect(600, 250, 50, 100);
+      image(schlamann, 400, 0);
 
       noFill();
       stroke(255);
@@ -98,9 +117,9 @@ function draw() {
 
       rect(300, 400, 600, 150);
 
-      dialogueFrag = prologue[dialoguePage].substring(0, frame / 4);
+      dialogueFrag = prologue[dialoguePage].substring(0, frame / 2);
 
-      if (frame / 4 > prologue[dialoguePage].length + 5) {
+      if (frame / 2 > prologue[dialoguePage].length + 5) {
         triangle(860, 515, 870, 515, 865, 525);
       }
 
@@ -130,19 +149,18 @@ function draw() {
       rect(300, questionY, 600, 150);
 
       //triangle for next page of dialogue
-      if (!showAnswers && frame / 4 > questions[level][dialoguePage].length + 5) {
+      if (!showAnswers && frame / 2 > questions[level][dialoguePage].length + 5) {
         triangle(860, 515, 870, 515, 865, 525);
-      } else if (answeredQuestion && frame / 4 > responses[level][answeredCorrectly][dialoguePage].length + 5) {
+      } else if (answeredQuestion && frame / 2 > responses[level][answeredCorrectly][dialoguePage].length + 5) {
         triangle(860, 315, 870, 315, 865, 325);
       }
 
       //generate question fragment
-
       if (!answeredQuestion) {
-        dialogueFrag = questions[level][dialoguePage].substring(0, frame / 4);
+        dialogueFrag = questions[level][dialoguePage].substring(0, frame / 2);
 
       } else {
-        dialogueFrag = responses[level][answeredCorrectly][dialoguePage].substring(0, frame / 4);
+        dialogueFrag = responses[level][answeredCorrectly][dialoguePage].substring(0, frame / 2);
       }
 
       fill(255);
@@ -200,9 +218,9 @@ function draw() {
 
       rect(300, 400, 600, 150);
 
-      dialogueFrag = epilogue[dialoguePage].substring(0, frame / 4);
+      dialogueFrag = epilogue[dialoguePage].substring(0, frame / 2);
 
-      if (frame / 4 > epilogue[dialoguePage].length + 5) {
+      if (frame / 2 > epilogue[dialoguePage].length + 5) {
         triangle(860, 515, 870, 515, 865, 525);
       }
 
@@ -232,7 +250,7 @@ function draw() {
         strokeWeight(3);
         rect(300, 400, 600, 150);
 
-        dialogueFrag = lastLines[dialoguePage].substring(0, frame / 4);
+        dialogueFrag = lastLines[dialoguePage].substring(0, frame / 2);
 
         fill(255);
         noStroke();
@@ -454,7 +472,7 @@ function draw() {
       fill(255);
       textSize(30);
 
-      if (frame < 1750) {
+      if (frame < 2200 + 150) {
 
         push();
 
@@ -470,25 +488,32 @@ function draw() {
 
         text("art by maria jiao & shivum banerjee", 600, 1700);
 
-        text("game design, advice, & marketing by payton levinthal", 600, 2000);
+        text("game design, advice, criticism, CEO, dialogue, *coding, marketing, & inspiration by payton levinthal", 600, 2000);
 
-        text("playtesting by payton's ap physics 1 class", 600, 2300);
+        text("\"Thank you to Mr. Schlamann's 7/8 CSA\" the CEO", 600, 2300);
 
-        text("story by elyssa chandler, maria jiao, & shivum banerjee", 600, 2600);
+        text("\"and also 9\" the CEO", 600, 2600);
 
-        text("minigames by shivum banerjee & alex yang", 600, 2900);
+        text("playtesting by payton's ap physics 1 class", 600, 2900);
 
-        text("animations by maria jiao & shivum banerjee", 600, 3200);
+        text("story by elyssa chandler, maria jiao, & shivum banerjee", 600, 3200);
+
+        text("minigames by shivum banerjee & alex yang", 600, 3500);
+
+        text("animations by maria jiao & shivum banerjee", 600, 3800);
+
+        text("shivum banerjee", 600, 4100);
+
+        text("shivum banerjee", 600, 4400);
 
         pop();
-      } else {
 
+      } else {
         textAlign(CENTER);
         textSize(30);
         text("thank you for playing our game!", width / 2, height / 2);
         textSize(15);
         text("- the schlamann gamin team", width / 2 + 55, height / 2 + 20);
-
       }
 
       frame++;
@@ -498,7 +523,7 @@ function draw() {
     case "settings":
       background(0);
 
-      text("no settings for you", width / 2, height / 2);
+      text("talk to him", width / 2, height / 2);
 
       for (let i = 0; i < textOptions.length; i++) {
         if (i == selectedTextOption) {

@@ -1,42 +1,47 @@
-let scene;
-let level;
+var scene;
+var level;
 
-let levels;
+var levels;
 
-let keys;
+var keys;
 
-let frame;
+var frame;
 
-let selectedTextOption;
-let textOptions;
+var selectedTextOption;
+var textOptions;
 
-let prologue;
-let dialoguePage;
-let dialogueFrag;
+var prologue;
+var dialoguePage;
+var dialogueFrag;
 
-let codeEditor;
-let fileNames;
-let fileData;
+var codeEditor;
+var fileNames;
+var fileData;
 
-let questionY = 400;
-let showAnswers = false;
+var questionY = 400;
+var showAnswers = false;
 
-let questions;
+var questions;
 
-let answers;
-let selectedAnswer;
-let correctAnswers;
-let answeredCorrectly;
-let answeredQuestion;
+var answers;
+var selectedAnswer;
+var correctAnswers;
+var answeredCorrectly;
+var answeredQuestion;
 
-let responses;
+var responses;
 
-let epilogue;
-let lastLines;
+var epilogue;
+var lastLines;
 
-let spritesPos;
+var spritesPos;
+var pSprites;
 
-let prisonbg;
+var cell;
+var bars;
+var deepslate;
+
+var schlamann;
 
 function setup() {
   createCanvas(1200, 600);
@@ -64,13 +69,22 @@ function setup() {
   textOptions = [];
 
   prologue = [
-    "Hey there...",
-    "The name's Schlamann.",
-    "I've gone and locked away all of these innocent animals!",
-    "No one will be able to unlock the prison doors.",
-    "You would have to read the code to understand the secret to unlocking those cells.",
-    "I'm glad you pesky students don't know polymorphism well enough to pass all the levels.",
-    "You can try, for sure, but you will fail..."
+    "alright, bubs...",
+    "or should i say, SCHL-ODERS...",
+    "did i ever tell you about the time that i - ",
+    "never mind.",
+    "anyways...",
+    "you know why you're in jail?",
+    "YOU SCHL-ODERS DESERVE IT!!!!",
+    "YOU'VE CHAT GPT'd EVERY GODDAMN ASSIGNMENT, ",
+    "CTR + C, CTR + V'd YOUR WAY THROUGH MY CLASS,",
+    "AND COUNTERFEITED TOO MANY SCHLOTTO TICKETS TO \nCOUNT.",
+    "and also you didn't laugh at my jokes.",
+    "AND NOW YOU SHALL FACE THE CONSEQUENCES:",
+    "A LIFETIME IN SCHL-AIL.",
+    "enjoy your stay, SCHL-ODERS; the only way \nyou're getting out is if you code your way \nout.",
+    "too bad you don't understand simple \nPOLYMORPHISM,",
+    "and even more unfortunate that you wouldn't \nknow how to READ THE CODE to figure out my \ntraps..."
   ];
 
   dialoguePage = 0;
@@ -160,47 +174,46 @@ function setup() {
 
   questions = [
     [
-      "Oh, you passed that level!",
-      "I don't need to worry, though, because that was the easiest level.",
-      "Maybe you didn't know what you were doing but got through it anyway.",
-      "We'll see if you actually get to pass...",
-      "What is the superclass of the Game class?"
+      "huh. not bad.",
+      "SCHLE-BASTIAN! STOP PLAYING CHESS!",
+      "anyways,",
+      "of course, you SCHL-ODERS probably have no \nidea what any of that code means.",
+      "give me the superclass of the Game class."
     ],
 
     [
-      "What? You figured it out again?!",
-      "It's less likely... but maybe it was another fluke!",
-      "Which method was inherited by the Watergun class?"
+      "not too SCHLA-BBY, SCHL-ODER.",
+      "it seems you have a somewhat functional frontal lobe.",
+      "now, tell me, which method was inherited by the Watergun class."
     ],
 
     [
-      "Unbelievable! This isn't right!",
-      "You won't ruin my plans for world domination!",
-      "Maybe this'll stop you:",
-      "Which of the following was tested in this game?"
+      "i might give you a SCHLOTTO ticket for that one...",
+      "SCHL-ODER,",
+      "if i wasn't 100% sure that you guessed.",
+      "i'm gonna drop you like a helicopter-bench on my high school football field",
+      "what did this game test?"
     ],
 
     [
-      "How is this possible?!",
-      "You shouldn't know anything about polymorphism and inheritance!",
-      "If you passed that test then you must be able to answer this question...",
-      "When you were finding the keys for controlling the Vacuum, you should have noticed that the instantWin method of the VacuumGame class doesn't work. Which of the following changes to the code would have made it accessible?"
+      "well, well, well...",
+      "you've gone further than the last SCHLA-MINION...",
+      "but i have a way to SCHL-OP you right in your tracks...",
+      "tell me, SCHL-ODER, what change would have made the instant win method work?"
     ],
 
     [
-      "Oh no, no, no...",
-      "You can't be flying through these levels.",
-      "You will not be able to unlock all those prison doors. ",
-      "I won't allow it. ",
-      "I will stop you!",
-      "Which constructor does the code \"Game g = new HammerGame(\"k\",\"o\");\" call?"
+      "this is...",
+      "SCHL-OCKING...",
+      "to be honest, i didn't think a SCHL-ODER could get this far...",
+      "Give me the constructor that's called. \"Game g = new HammerGame(\"k\",\"o\");\""
     ],
 
     [
-      "NO!!!",
-      "WHAT HAVE YOU DONE?!",
-      "FINE!!! I'll give you my hardest question yet...",
-      "Which statement about subclass methods is false?"
+      "it seems we're on the last SCHL-EVEL, SCHL-ODER.",
+      "did i ever tell you how i got this scar on my mouth?",
+      "try not to ride this horse into a tree branch.",
+      "which statement, much like yourself, is incorrect?"
     ],
   ];
 
@@ -251,7 +264,7 @@ function setup() {
 
   selectedAnswer = [0, 0];
 
-  correctAnswers = [2, 1, 0, 1, 3, 4];
+  correctAnswers = [0, 0, 0, 0, 0, 0];
 
   answeredCorrectly = 0;
   answeredQuestion = false;
@@ -339,9 +352,9 @@ function setup() {
     ]
   ];
   
-  epilogue = ["I CANT BELIVE THIS", "HOW COULD YOU!?!?!", "YOULL NEVER GET ME ALIVE"];
+  epilogue = ["...", "...", "...", "what", "the", "...", "you freed them all?", "let me you a story,", "of a young boy on the football team in his high school...", "he had a dream...", "that he would teach the Computer Sciences...", "and he succeeded!!!", "I TRICKED YOU!!!", "I WON THIS GAME!!!", "I MADE YOU LEARN POLYMORPHISM!!", "MWAHAHAHAHH!"];
   
-  lastLines = ["WHAT NONSENSE--", "ARGHHHH", "NOOOO!!!!!"];
+  lastLines = ["WHAT!?!? PAWNY!?!?", "ARGHHHH", "NOOOO!!!!!", "MY REMOTE!!!!", "YOU CAN'T", "DO THIS-"];
 
   spritesPos = [
     [300, -10],
@@ -352,7 +365,20 @@ function setup() {
     [300, 610],
   ];
 
-  prisonbg = loadImage("assets/prisonbg.png");
+  cell = loadImage("assets/images/cell.png");
+  bars = loadImage("assets/images/bars.png");
+  deepslate = loadImage("assets/images/deepslate.png");
+
+  pSprites = [
+    levels[0].p.sprite,
+    levels[1].p.sprite,
+    levels[2].p.sprite,
+    levels[3].p.sprite,
+    levels[4].p.sprites[0][1],
+    levels[5].panda.sprites
+  ];
+
+  schlamann = loadImage("assets/images/schlamann.png");
 
 }
 

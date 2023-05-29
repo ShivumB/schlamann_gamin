@@ -50,8 +50,9 @@ function Gun() {
     this.x = 50;
     this.y = 550;
 
-    this.width = 100;
-    this.height = 50;
+    //these control the size of the hitbox, not the image - the image is fixed
+    this.width = 85;
+    this.height = 35;
     
     this.velX = 0;
     this.velY = 0;
@@ -106,8 +107,13 @@ Gun.prototype.act = function(keys, bullets, bulletSprite) {
     translate(this.x, this.y);
     
     rotate(this.theta);
-    
-    image(this.sprite, -this.width/2,  -this.height/2, this.width, this.height);
+
+    //use these to show hitbox
+    // noFill();
+    // stroke(0);
+    // strokeWeight(3);
+    // rect(-this.width/2, -this.height/2, this.width, this.height);
+    image(this.sprite, -100/2,  -50/2, 100, 50);
   
     pop();
     
@@ -247,12 +253,19 @@ Level1.prototype.play = function(keys) {
     
     this.p.act(keys, this.bullets, this.bulletSprite);
   
-    if(checkCollision(this.p.x, this.p.y, this.p.width, this.p.height, this.p.theta, 480 + 30, 80 + 30, 60, 60)) {
+    if(checkCollision(this.p.x, this.p.y, this.p.width, this.p.height, this.p.theta, (480 + 10) + 20, (80) + 30, 40, 60)) {
       this.win = true;
     }
   
     fill(255, 255,0);
     
+    //use these to show hitbox
+    // noFill();
+    // stroke(0);
+    // strokeWeight(3);
+    // rect(480 + 10, 80, 40, 60);
+
+    //image is too big, so we pretend that the hitbox starts at 490, is only 40 / 60 px wide
     image(this.keySprite, 480, 80);
 }
 

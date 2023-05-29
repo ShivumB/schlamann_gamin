@@ -101,7 +101,7 @@ function Panda(x, y) {
     this.x = x;
     this.y = y;
 
-    this.sprites = [loadImage("assets/images/level5/panda0.png"), loadImage("assets/images/level5/panda1.png"), loadImage("assets/level5/panda2.png")];
+    this.sprites = [loadImage("assets/images/level5/panda0.png"), loadImage("assets/images/level5/panda1.png"), loadImage("assets/images/level5/panda2.png")];
 
     this.frame = 100;
 
@@ -132,11 +132,11 @@ Level5Key.prototype.act = function(bar) {
 
 function Level5() {
 
-  this.d = new Dial(450, 450);
+  this.d = new Dial(440, 400);
 
   this.bar = new ProgressBar(25, 75, 450, 60);
   this.key = new Level5Key(500, 75);
-  this.panda = new Panda(230, 400);
+  this.panda = new Panda(140, 275);
 
   this.win = false;
 

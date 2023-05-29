@@ -150,7 +150,7 @@ function Level4() {
     ];
 
     this.groundSprites = [];
-    for(let i = 0; i < 4; i++) this.groundSprites.push(loadImage("images/level4/ground" + i + ".png"));
+    for(let i = 0; i < 4; i++) this.groundSprites.push(loadImage("assets/images/level4/ground" + i + ".png"));
 
     this.p = new Dog(560, 520);
 
