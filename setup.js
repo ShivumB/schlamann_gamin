@@ -155,7 +155,7 @@ function setup() {
       //level 1
       "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
 
-      "class Game {\n//some code hidden!\n\tprivate Watergun watergun = new Watergun();\n\tprivate Target[] targets;\n\tprivate Key key;\n\n\t// other variables and methods not shown\n\tvoid run() {\n\t\twhile(true) {\n\t\t\twatergun.act();\n\n\t\t\tfor(Target e : targets) {\n\t\t\t\te.act();\n\t\t\t\tif(collision(watergun, e)) reset();\n\t\t\t}\n\nif(collision(watergun, key)) win = true;\n\t\t}\n\t}\n}\n",
+      "class Game {\n//some code hidden!\n\tprivate Watergun watergun = new Watergun();\n\tprivate Target[] targets;\n\tprivate Key key;\n\n\t// other variables and methods not shown\n\tvoid run() {\n\t\twhile(true) {\n\t\t\twatergun.act();\n\n\t\t\tfor(Target e : targets) {\n\t\t\t\te.act();\n\t\t\t\tif(collision(watergun, e)) reset();\n\t\t\t}\n\n\tif(collision(watergun, key)) win = true;\n\t\t}\n\t}\n}\n",
      
       "class Toy {\n//some code hidden!\n\tvoid rotate() {\n\t\tif (Game.keyPressed(“u”)) angle++;\n\t\tif(Game.keyPressed(“i”)) angle--;\n\t}\n}\n",
 
@@ -253,7 +253,7 @@ function setup() {
       "well, well, well...",
       "you've gone further than the last SCHLODER...",
       "but i have a way to SCHL-OP you right in your \ntracks...",
-      "what happens if a subclass constructor (SBC) is called \nif the subclass doesn’t explicitly call its \nsuperclass constructor (SPC)?"
+      "what happens if a subclass constructor (SBC) is \ncalled if the subclass doesn’t explicitly \ncall its superclass constructor (SPC)?"
      
     ],
 

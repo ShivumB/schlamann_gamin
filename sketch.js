@@ -10,6 +10,7 @@ function draw() {
         showAnswers = false;
         answeredQuestion = false;
         questionY = 400;
+        codeEditor.selectedFile = 0;
 
         if (level >= levels.length) scene = "epilogue";
 
@@ -140,7 +141,8 @@ function draw() {
       stroke(0);
       strokeWeight(1);
       //schlamann placeholder
-      rect(600, questionY - 150, 50, 100);
+      image(schlamann, 400, questionY - 400);
+      //rect(600, questionY - 150, 50, 100);
 
       //dialogue box
       noFill();
@@ -186,15 +188,15 @@ function draw() {
           let y = selectedAnswer[0] * 60 + 442;
 
           if (!answeredQuestion) {
-            triangle(x, y + 8, x, y - 8, x + 13, y);
+            triangle(x - 5, y + 8, x - 5, y - 8, x + 13 - 5, y);
           }
 
           noStroke();
           fill(255);
-          text(answers[level][0], 375, 450);
-          text(answers[level][1], 700, 450);
-          text(answers[level][2], 375, 510);
-          text(answers[level][3], 700, 510);
+          text(answers[level][0], 360, 450);
+          text(answers[level][1], 685, 450);
+          text(answers[level][2], 360, 510);
+          text(answers[level][3], 685, 510);
         }
       }
 
@@ -210,7 +212,7 @@ function draw() {
       stroke(0);
       strokeWeight(1);
       //schlamann
-      rect(600, 250, 50, 100);
+      image(schlamann, 400, 0);
 
       noFill();
       stroke(255);
@@ -243,7 +245,7 @@ function draw() {
         stroke(0);
         strokeWeight(1);
         //schlamann
-        rect(600, 250, 50, 100);
+        image(schlamann, 400, 0);
 
         fill(0);
         stroke(255);
