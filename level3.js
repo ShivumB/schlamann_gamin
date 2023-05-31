@@ -242,19 +242,19 @@ Level3.prototype.handleKeyPressed = function () {
 
     var spacing = 600 / (5 + 1);
 
-    if (keyCode === 65) {
+    if (keyCode == 83) {
         this.p.selectedMole = Math.max(0, this.p.selectedMole - 1);
 
         this.p.targetX = this.p.selectedMole * spacing + 75 - 40;
     }
 
-    if (keyCode === 68) {
+    if (keyCode == 72) {
 
         this.p.selectedMole = Math.min(4, this.p.selectedMole + 1);
         this.p.targetX = this.p.selectedMole * spacing + 75 - 40;
     }
 
-    if (keyCode === 83) {
+    if (keyCode == 79) {
         this.p.frame = 0;
         this.p.smash();
     }

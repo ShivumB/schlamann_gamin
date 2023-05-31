@@ -27,16 +27,16 @@ function Dog(x, y) {
 
 Dog.prototype.act = function (blocks, spikes) {
 
-    if (keys[65]) this.velX--;
+    if (keys[81]) this.velX--;
 
-    if (keys[68]) this.velX++;
+    if (keys[80]) this.velX++;
 
-    if (keys[87] && this.canJump) {
+    if (keys[82] && this.canJump) {
         this.velY = -18;
         this.canJump = false;
     }
 
-    if (!keys[65] && !keys[68]) this.velX *= 0.8;
+    if (!keys[81] && !keys[80]) this.velX *= 0.8;
     this.velY += 1;
 
     if (this.velX < -10) this.velX = -10;

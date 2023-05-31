@@ -27,15 +27,15 @@ function Vacuum(x, y) {
 
 Vacuum.prototype.act = function (keys, dust) {
 
-    if (keys[65]) this.omega++;
-    if (keys[68]) this.omega--;
+    if (keys[74]) this.omega++;
+    if (keys[76]) this.omega--;
 
-    if (keys[87]) this.vel++;
+    if (keys[73]) this.vel++;
 
     if (this.vel > 7) this.vel = 7;
 
-    if (!keys[68] && !keys[65]) this.omega *= 0.8;
-    if (!keys[87]) this.vel *= 0.9;
+    if (!keys[74] && !keys[76]) this.omega *= 0.8;
+    if (!keys[73]) this.vel *= 0.9;
 
     if (this.omega > 5) this.omega = 5;
     if (this.omega < -5) this.omega = -5;

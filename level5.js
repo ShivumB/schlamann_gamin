@@ -160,7 +160,7 @@ Level5.prototype.play = function(keys) {
 };
 
 Level5.prototype.handleKeyPressed = function() {
-    if(keyCode == 87) {
+    if(keyCode == 78) {
         this.d.hit(this.bar, this.panda);
         this.panda.frame = 0;
     }

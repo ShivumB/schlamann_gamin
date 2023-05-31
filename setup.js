@@ -1,27 +1,36 @@
 var scene;
 var level;
 
+
 var levels;
+
 
 var keys;
 
+
 var frame;
+
 
 var selectedTextOption;
 var textOptions;
+
 
 var prologue;
 var dialoguePage;
 var dialogueFrag;
 
+
 var codeEditor;
 var fileNames;
 var fileData;
 
+
 var questionY = 400;
 var showAnswers = false;
 
+
 var questions;
+
 
 var answers;
 var selectedAnswer;
@@ -29,29 +38,39 @@ var correctAnswers;
 var answeredCorrectly;
 var answeredQuestion;
 
+
 var responses;
+
 
 var epilogue;
 var lastLines;
 
+
 var spritesPos;
 var pSprites;
+
 
 var cell;
 var bars;
 var deepslate;
 
+
 var schlamann;
+
 
 function setup() {
   createCanvas(1200, 600);
 
+
   angleMode(DEGREES);
+
 
   textFont(loadFont('assets/fonts/VT323/VT323-Regular.ttf'));
 
+
   scene = "intro";
   level = 0;
+
 
   levels = [];
   levels.push(new Level0());
@@ -61,12 +80,16 @@ function setup() {
   levels.push(new Level4());
   levels.push(new Level5());
 
+
   keys = [];
+
 
   frame = 0;
 
+
   selectedTextOption = 0;
   textOptions = [];
+
 
   prologue = [
     "alright, bubs...",
@@ -76,7 +99,7 @@ function setup() {
     "anyways...",
     "you know why you're in jail?",
     "YOU SCHL-ODERS DESERVE IT!!!!",
-    "YOU'VE CHAT GPT'd EVERY GODDAMN ASSIGNMENT, ",
+    "YOU'VE CHAT GPT'd EVERY ASSIGNMENT, ",
     "CTR + C, CTR + V'd YOUR WAY THROUGH MY CLASS,",
     "AND COUNTERFEITED TOO MANY SCHLOTTO TICKETS TO \nCOUNT.",
     "and also you didn't laugh at my jokes.",
@@ -87,135 +110,170 @@ function setup() {
     "and even more unfortunate that you wouldn't \nknow how to READ THE CODE to figure out my \ntraps..."
   ];
 
+
   dialoguePage = 0;
   dialogueFrag = "";
 
+
   codeEditor = new CodeEditor();
+
 
   fileNames = [
     ["Main.java", "Game.java", "Pawn.java"],
 
+
     ["Main.java", "Game.java", "Toy.java", "Watergun.java"],
 
-    ["Main.java", "Game.java", "VacuumGame.java", "Vacuum.java"],
 
-    ["Main.java", "Game.java", "DogGame.java", "Dog.java"],
+    ["Main.java", "Game.java", "Robot.java", "Vacuum.java"],
 
-    ["Main.java", "Game.java", "HammerGame.java", "Hammer.java"],
+
+    ["Main.java", "Game.java", "Tool.java", "Hammer.java"],
+
+
+    ["Main.java", "Game.java", "Animal.java", "Dog.java"],
+
 
     ["Main.java", "Game.java", "Panda.java", "BuffPanda.java"],
   ];
 
+
   fileData = [
     [
       //level 0
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
 
-      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Pawn pawn = new Pawn();\n\tprivate boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tpawn.move();\n\t\t\tif (proximity(pawn, enemies) == 0)\n\t\t\t\treset();\n\t\t\tif (proximity(pawn, key) == 0)\n\t\t\t\twin = true;\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
 
-      "class Pawn {\n\t// other variables and methods not shown\n\n\tprivate int x = 0;\n\tprivate int y = 300;\n\t\n\tPawn() {}\n\n\tvoid move() {\n\t\tthis.x += 40;\n\t}\n}\n",
+      "class Game {\n//some code hidden!\n\tprivate Pawn pawn = new Pawn(...);\n\tprivate Rook[] rooks;\n\tprivate Key key;\n\t\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tpawn.act();\n\t\t\t\n\t\t\tfor(Rook e : rooks) {\n\t\t\t\te.act();\n\t\t\t\tif(collision(pawn, e)) reset();\n\t\t\t}\n\t\t\t\n\t\t\tif (collision(pawn, key)) win = true;\n\t\t}\n\t}\n}\n",
+
+
+      "class Pawn {\n//some code hidden!\n\tprivate int x = 0;\n\tprivate int y = 300;\n\n\tpublic void act() {\n\t\tif (Game.keyPressed(“r”)) this.x += 40;\n\t\t...\n\t}\n}\n"
     ],
+
 
     [
       //level 1
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
 
-      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Watergun watergun = new Watergun();\n\tprivate boolean win = false;\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“o”))\n\t\t\t\twatergun.rotate(true);\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\twatergun.rotate(true);\n\t\t\tif (getKeysPressed().contains(“q”))\n\t\t\t\twatergun.shoot();\n\t\t\tif (proximity(watergun, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
+      "class Game {\n//some code hidden!\n\tprivate Watergun watergun = new Watergun();\n\tprivate Target[] targets;\n\tprivate Key key;\n\n\t// other variables and methods not shown\n\tvoid run() {\n\t\twhile(true) {\n\t\t\twatergun.act();\n\n\t\t\tfor(Target e : targets) {\n\t\t\t\te.act();\n\t\t\t\tif(collision(watergun, e)) reset();\n\t\t\t}\n\nif(collision(watergun, key)) win = true;\n\t\t}\n\t}\n}\n",
+     
+      "class Toy {\n//some code hidden!\n\tvoid rotate() {\n\t\tif (Game.keyPressed(“u”)) angle++;\n\t\tif(Game.keyPressed(“i”)) angle--;\n\t}\n}\n",
 
-      "class Toy {\n\t// other variables and methods not shown\n\n\tToy() { ... }\n\n\tvoid rotate(boolean counterclockwise) {\n\t\tif (counterclockwise) angle++;\n\t\telse angle--;\n\t}\n}\n",
-
-      "class Watergun extends Toy {\n\t// other variables and methods not shown\n\n\tWatergun() { ... }\n\n\tvoid shoot() {\n\t\t...\n\t}\n}\n",
+      "class Watergun extends Toy {\r\n\t//some code hidden!\r\n\tvoid shoot() {\r\n\t\tif(Game.getKeyPressed(“l”)) {\r\n\t\t\t...\r\n        }\r\n    }\r\n\r\n\tvoid act() {\r\n\t\trotate();\r\n\t\tshoot();\r\n\r\n\t\tif(Game.getKeyPressed(“r”)) this.velY--;\r\n\t\tif(Game.getKeyPressed(“f”)) this.velY++;\r\n\t\tif(Game.getKeyPressed(“d”)) this.velX--;\r\n        if(Game.getKeyPressed(“g”)) this.velX++;\r\n        ...\r\n\t}\r\n}\r\n"
     ],
+
 
     [
       //level 2
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new VacuumGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
-      
-      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Vacuum robot = new Vacuum();\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile (true) {\n\t\t\tif (getKeysPressed().contains(“k”))\n\t\t\t\trobot.move();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
-      
-      "class VacuumGame extends Game {\n\t// other variables and methods not shown\n\n\tVacuumGame() { ... }\n\t\n\tvoid instantWin() {\n\t\twin = true;\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+     
+      "class Game {\r\n\t//some code hidden!\r\n\tprivate Robot vacuum = new Vacuum(...);\r\n\tprivate Dust[] dust;\r\n\tprivate Key key;\r\n\t\r\n\tvoid run() {\r\n\t\twhile (true) {\t\t\t\r\n\t\t\tvacuum.act(dust);\r\n\t\t\tif(collision(vacuum, key)) win = true;\r\n\t\t}\r\n\t}\r\n\r\n}\r\n",
 
-      "class Vacuum {\n\t// other variables and methods not shown\n\n\tVacuum() { ... }\n\n\tvoid move() {\n\t\t...\n\t}\n}\n"
+
+      "class Robot {\r\n\t//some code hidden!\r\n\tprotected void act(Dust[] dust) {\r\n\t\tif(Game.getKeyPressed(“q”)) this.vel++;\r\n\t\tif(Game.getKeyPressed(“w)) this.angle--;\r\n\t\tif(Game.getKeyPressed(“e”)) this.angle++;\r\n\t\t...\r\n    }\r\n}\r\n",
+
+
+      "class Vacuum extends Robot {\r\n\t//some code hidden!\r\n\tprotected void act(Dust[] dust) {\r\n\t\tif(Game.getKeyPressed(“i”)) this.vel++;\r\n\t\tif(Game.getKeyPressed(“j”)) this.angle--;\r\n\t\tif(Game.getKeyPressed(“l”)) this.angle++;\r\n\t\t...\r\n    }\r\n\r\n\tprivate void WIN_GAME_NOW_PRESS_ME() {\r\n\t\tif(Game.getKeyPressed(“q”)) {\r\n\t\t\t...\r\n        } \r\n\t}\r\n}"
     ],
+
+
+
 
     [
       //level 3
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tDogGame g = new DogGame();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
-      
-      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Dog dog = new Dog();\n\tprotected Lava[] lava = { ... };\n\tprotected boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“p”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, lava) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
-      
-      "class DogGame {\n\t// other variables and methods not shown\n\n\tDogGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“s”))\n\t\t\t\tdog.left();\n\t\t\tif (getKeysPressed().contains(“d”))\n\t\t\t\tdog.right();\n\t\t\tif (getKeysPressed().contains(“l”))\n\t\t\t\tdog.jump;\n\t\t\tif (proximity(dog, enemies) == 0)\n\t\t\t\treset();\n\t\t}\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+     
+      "class Game {\r\n\t//some code hidden!\r\n\tprivate Hammer hammer = new Hammer(...);\r\n\tprivate Mole[] moles;\r\n\tprivate Key key;\r\n\t\r\n\tvoid run() {\r\n\t\twhile (true) {\r\n\t\t\thammer.act();\r\n\r\n\t\t\tfor(Mole e : moles) {\r\n\t\t\t\tif(collision(hammer, e)) e.gone = true;\r\n            }\r\n\r\n            if(collision(hammer,key)) win = true;\r\n\t    }\r\n\t}\r\n} \r\n",
 
-      "class Dog {\n\t// other variables and methods not shown\n\nDog() { ... }\n\n\tvoid left() {\n\t\tthis.velX--;\n\t}\n\n\tvoid right() {\n\t\tthis.velX++;\n\t}\n\n  \tvoid jump() {\n\t\tif(this.y == 0)\n\t\t\tthis.velY = -15;\n\t}\n}\n"
+
+      "class Tool {\r\n\t//some code hidden!\r\n\tprotected leftKey;\r\n\tprotected rightKey;\r\n\tprotected smashKey;\r\n\tprotected useNextKeyInAlphabet = false;\r\n\r\n\tpublic Tool(...) {\r\n\t\tleftKey = “o”;\r\n\t\trightKey = “p”;\r\n\t\tsmashKey = “t”;\r\n\r\n\t\tuseNextKeyInAlphabet = true;\r\n        ...\r\n    }\r\n\r\n}\r\n",
+
+
+      "class Hammer {\r\n\t//some code hidden!\r\n    public Hammer(...) {\r\n\t    leftKey = “r”;\r\n\t    rightKey = “g”;\r\n\t    smashKey = “n”;\r\n\t    //is this constructor missing anything? like, another constructor or something?\r\n\t    //if it is, what does the compiler do?\r\n    }\t\r\n}\r\n"
     ],
+
 
     [
       //level 4
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new HammerGame(“k”, “o”);\n\t\t...\n\t\tg.run();\n\t}\n}\n",
-      
-      "class Game {\n\t// other variables and methods not shown\n\n\tprotected Hammer hammer = new Hammer();\n\tprotected Set<Enemy> enemies = new Set();\n\tprotected boolean win = false;\n\tprotected String moveKey;\n\tprotected String hitKey;\n\t\n\tGame(String moveKey, String hitKey) {\n\tthis.moveKey = moveKey;\n\tthis.hitKey = hitKey;\n}\n\n\tvoid addEnemy(Enemy e) {\n\t\tenemies.add(e);\n\t}\n\n\tvoid run() {\n\t\twhile (true) {\n\t\t\tif (getKeysPressed().contains(moveKey))\n\t\t\t\thammer.move();\n\t\t\tif (getKeysPressed().contains(hitKey))\n\t\t\t\thammer.hit();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n} \n",
-      
-      "class HammerGame extends Game {\n\t// other variables and methods not shown\n\n\tHammerGame() { ... }\n\n\tHammerGame() {\n\t\tsuper.moveKey = “r”;\n\t\tsuper.hitKey = “l”;\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+     
+      "class Game {\r\n\t//some code hidden!\r\n\tprivate Animal dog = new Dog(...);\r\n\tprivate Lava[] lava;\r\n\tprivate Key key;\r\n\t\r\n\tvoid run() {\r\n\t\twhile(true) {\r\n\t\t\tdog.act();\r\n\r\n            for(Lava e : lava) {\r\n\t            if(collision(dog, e)) reset();\r\n            }\t\t\t\r\n\r\n\t\t\tif(collision(dog, key)) win = true;\r\n\t\t}\r\n\t}\r\n}\r\n",
 
-      "class Hammer {\n\t// other variables and methods not shown\n\nHammer() { ... }\t\n\n\tvoid move() {\n\t\t...\n\t}\n\n\tvoid hit() {\n\t\t...\n\t}\n}\n"
+
+      "class Animal {\r\n\t//some code hidden!\r\n\tprotected void move() {\r\n\t\tif(Game.getKeyPressed(“v”)) this.velX --;\r\n\t\tif(Game.getKeyPressed(“m”)) this.velX++;\r\n\t\tif(Game.getKeyPressed(“p”)) this.velY = -15;\r\n}\r\n\r\n\tprotected void act() {\r\n\t\tmove();\r\n\t\t...\r\n    }\r\n\r\n}\r\n",
+
+
+      "class Dog extends Animal {\r\n    //some code hidden!\r\n    private void move() {\r\n\t    if(Game.getKeyPressed(“q”)) this.velX --;\r\n\t    if(Game.getKeyPressed(“p”)) this.velX++;\r\n\t    if(Game.getKeyPressed(“r”)) this.velY = -15;\r\n    }\r\n}\r\n"
     ],
+
+
+
 
     [
       //level 5
-      "class Main {\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
-      
-      "class Game {\n\t// other variables and methods not shown\n\n\tprivate Panda panda = new BuffPanda();\n\tprivate boolean win = false;\n\t\n\tGame() { ... }\n\n\tvoid run() {\n\t\twhile(true) {\n\t\t\tif (getKeysPressed().contains(“w”))\n\t\t\t\tpanda.startCurlUps();\n\t\t\tif (getKeysPressed().contains(“q”))\n\t\t\t\tpanda.addCurlUps();\n\t\t\tif (getKeysPressed().contains(“r”))\n\t\t\t\tpanda.addCurlUpsTimesTen();\n\t\t}\n\t}\n\n\tList<String> getKeysPressed() {\n\t\t...\n\t}\n}\n",
-      
-      "class Panda {\n\t// other variables and methods not shown\n\n\tprivate int numCurlUps;\n\t\n\tPanda() { ... }\n\t\n\tvoid addCurlUp() {\n\t\tnumCurlUps++;\n\t}\n\n\tvoid addCurlUpsTimesTen() {\n\t\tnumPushUps += 10; \n\t}\n\n\tvoid startCurlUps() {\n\t\t...\n\t}\n}\n",
+      "class Main {\n\t//some code hidden!\n\tpublic static void main(String[] args) {\n\t\tGame g = new Game();\n\t\t...\n\t\tg.run();\n\t}\n}\n",
+     
+      "class Game {\r\n\t//some code hidden!\r\n\tprivate Panda panda = new BuffPanda();\r\n\tprivate Dial dial;\r\n\tprivate ProgressBar bar;\r\n\t\r\n\tvoid run() {\r\n\t\twhile(true) {\r\n\t\t\t\r\n\t\t\tbar.addProgress(panda.curl(dial));\r\n\r\n            if(bar.getProgress() >= 80) win = true;\r\n\t\t}\r\n\t}\r\n}\r\n",
 
-      "class BuffPanda extends Panda {\n\t// other variables and methods not shown\n\n\tBuffPanda() { ... }\n\n\tvoid addCurlUpsTimesTen(int n) {\n\t\tnumCurlUps += n * 10;\n\t}\n}\n"
+
+      "class Panda {\r\n\t//some code hidden!\r\n\tpublic void curl(Dial dial) {\r\n\t\tif(Game.getKeyPressed(“n”)) {\r\n\t\t\tif(dial.checkHit()) return 5;\r\n\t\t\telse return -5;\r\n        }\r\n        return 0;\r\n    }\r\n}\r\n",
+
+
+      "class BuffPanda extends Panda {\r\n\t//some code hidden!\r\n\tpublic void curl(Dial dial) {\r\n\t\tint ans = -100;\r\n\r\n\t\tif(Game.getKeyPressed(“a”)) ans += 10000;\r\n\t\tif(Game.getKeyPressed(“b”)) ans -= 10000;\r\n\r\n\t\tif(Math.random() * 2 < 0.4) ans = 0;\r\n\r\n\t\tans = super.curl();\r\n\t\treturn ans;\r\n    }\r\n}\r\n"
     ],
   ];
+
 
   questions = [
     [
       "huh. not bad.",
       "SCHLE-BASTIAN! STOP PLAYING CHESS!",
       "anyways,",
-      "of course, you SCHL-ODERS probably have no \nidea what any of that code means.",
+      "you SCHL-ODERS probably have no idea what \nany of that code means.",
       "give me the superclass of the Game class."
     ],
 
-    [
-      "not too SCHLA-BBY, SCHL-ODER.",
-      "it seems you have a somewhat functional frontal lobe.",
-      "now, tell me, which method was inherited by the Watergun class."
-    ],
 
     [
-      "i might give you a SCHLOTTO ticket for that one...",
-      "SCHL-ODER,",
-      "if i wasn't 100% sure that you guessed.",
-      "i'm gonna drop you like a helicopter-bench on my high school football field",
-      "what did this game test?"
+      "not too SCHLA-BBY, SCHL-ODER.",
+      "which method was inherited by the \nWatergun class?"
     ],
+
+
+    [
+      "i might give you a SCHLOTTO ticket for that \none...",
+      "SCHL-ODER,",
+      "i'm gonna drop you like a helicopter-bench on \nmy high school football field",
+      "why didn't the vacuum's instant win \nmethod work?"
+     
+    ],
+
 
     [
       "well, well, well...",
-      "you've gone further than the last SCHLA-MINION...",
-      "but i have a way to SCHL-OP you right in your tracks...",
-      "tell me, SCHL-ODER, what change would have made the instant win method work?"
+      "you've gone further than the last SCHLODER...",
+      "but i have a way to SCHL-OP you right in your \ntracks...",
+      "what happens if a subclass constructor (SBC) is called \nif the subclass doesn’t explicitly call its \nsuperclass constructor (SPC)?"
+     
     ],
+
 
     [
       "this is...",
       "SCHL-OCKING...",
-      "to be honest, i didn't think a SCHL-ODER could get this far...",
-      "Give me the constructor that's called. \"Game g = new HammerGame(\"k\",\"o\");\""
+      "to be honest, i didn't think a SCHL-ODER \ncould get this far...",
+      "what did this game test?"
     ],
 
+
     [
-      "it seems we're on the last SCHL-EVEL, SCHL-ODER.",
-      "did i ever tell you how i got this scar on my mouth?",
+      "it seems we're on the last SCHL-EVEL, \nSCHL-ODER.",
+      "did i ever tell you how i got this scar on \nmy mouth?",
       "try not to ride this horse into a tree branch.",
-      "which statement, much like yourself, is incorrect?"
+      "If a superclass method was overridden in \nthe subclass, what would happen if \nsuper.method was called?"
     ],
   ];
+
 
   answers = [
     [
@@ -225,6 +283,7 @@ function setup() {
       "Game class"
     ],
 
+
     [
       "shoot()",
       "rotate()",
@@ -232,129 +291,144 @@ function setup() {
       "Toy()"
     ],
 
-    [
-      "Overridden methods",
-      "Inaccessible methods",
-      "Overloading methods",
-      "Inheriting constructors"
-    ],
 
     [
-      "Set 'win' to `true` instead of false in its declaration in the Game class",
-      "Change the declaration in the Main class to \"VacuumGame g = new VacuumGame()\"",
-      "Change the return type of instantWin() to something that's not void",
-      "Change the declaration in the Main class to \"VacuumGame g = new Game()\""
+      "Not public",
+      "Declared as Robot",
+      "Hidden code failed",
+      "It did"
     ],
 
-    [
-      "Game()",
-      "Object()",
-      "Main()",
-      "HammerGame()"
-    ],
 
     [
-      "If Class1 is a superclass of Class2, and Class2 is a superclass of Class3, and Class2 has no overridden methods, Class3 inherits all the public methods of Class1. ",
-      "A public method in a subclass that is not in its superclass is not accessible by the superclass.",
-      "A private method in a superclass is not inherited by its subclass.",
-      "Two different subclasses of the same superclass inherit the same methods of the superclass.",
-      "Writing two subclass methods with the same name but different parameters is called method overriding."
+      "SPC at start",
+      "SPC at end",
+      "SPC ignored",
+      "SBC overrides SPC"      
+    ],
+
+
+    [
+      "Overriding",
+      "Pseudo-objects",
+      "Overloading",
+      "False constructs"
+    ],
+
+
+    [
+      "Overriden method",
+      "Compile error",
+      "Nothing",
+      "Superclass method"
     ],
   ];
 
+
   selectedAnswer = [0, 0];
 
-  correctAnswers = [0, 0, 0, 0, 0, 0];
+
+  correctAnswers = [2, 1, 1, 0, 0, 3];
+
 
   answeredCorrectly = 0;
   answeredQuestion = false;
   responses = [
     [
       [
-        "Wrong!",
-        "I knew you didn't know!", 
-        "Go back and try again."
+        "alright, no SCHLOTTO ticket for you.",
+        "try again, SCHLODER.",
       ],
       [
-        "Fine.", 
-        "You were correct.", 
-        "But... the next one is gonna stump you for sure."
+        "wow. you're better at chess than my son...",
+        "not that that's saying much...",
+        "i'm just kidding. he's getting pretty good.",
+        "not sure if i can say the same for you."
       ]
     ],
 
-    [
-      [
-        "Ha! I knew it was just a fluke.", 
-        "Maybe if you try again you'll figure it out."
-      ],
-      [
-        "No way! You actually got it!", 
-        "Either you know more than I thought...", 
-        "Or, you're learning.",
-        "This isn't good.",
-        "Let's make things a little harder then!"
-      ]
-    ],
 
     [
       [
-        "GREAT!", 
-        "Phew, I was actually scared you were getting it for a minute there.",
-        "I'll let you try again though."
+        "what, Chat-GPT couldn't solve that one?",
+        "maybe you'll pay more attention in class now..."
       ],
       [
-        "ARGH!", 
-        "How did you get that?!", 
-        "This is where you'll fail for sure."
+        "impressive,",
+        "for a SCHLODER,"
       ]
     ],
 
-    [
-      [
-        "Ha!", 
-        "Luck will only get you so far in life. ", 
-        "Scurry on back now and try again."
-      ],
-      [
-        "Grrrrrr.", 
-        "You got this far...", 
-        "But I won't let you get any further!"
-      ]
-    ],
 
     [
       [
-        "Whew.", 
-        "That was close.", 
-        "But too bad for YOU!",
-        "Because that was WRONG!",
-        "Try again."
+        "did i ever tell you that my kid wants to make \nvideo games on Roblox?",
+        "he's made some pretty cool ones on Scratch.",
+        "put a lot of effort into them...",
+        "what i mean to say is"
       ],
+
+
       [
-        "NO!", 
-        "You can't be getting everything right.", 
-        "You will NOT be getting through every single level I have prepared for you."
+        "alright, not bad.",
+        "but you can make it better.",
+        "https://www.youtube.com/@johnschlamann3146"
       ]
     ],
 
+
     [
       [
-        "HA!", 
-        "Nice try!", 
-        "I guess you didn't get my lesson then...",
-        "Time to try again!"
+        "you know, you remind of one of jerry's riddles",
+        "nigh incomprehensible",
+        "how was i supposed to guess it was jeremy lin",
+      ],
+
+
+      [
+        "i'm proud of you",
+        "...",
+        "...",
+        "...",
+        "...",
+        "...",
+        "...",
+        "...",
+        "...",
+        "...",
+      ]
+    ],
+
+
+    [
+      [
+        "is your head screwed on properly?",
+        "beep boop"
       ],
       [
-        "NOOO!!!", 
-        "THIS ISN'T POSSIBLE!!!", 
-        "YOU WON!!!"
+        "what's up? what's up????",
+        "my blood pressure is up, SCHLODER.",
+        "move on."
+      ]
+    ],
+
+
+    [
+      [
+        "i'm going to have your mom on the phone...",
+      ],
+      [
+        "...",
+        "...",
+        "..."
       ]
     ]
   ];
-  
-  epilogue = ["...", "...", "...", "what", "the", "...", "you freed them all?", "let me you a story,", "of a young boy on the football team in his high school...", "he had a dream...", "that he would teach the Computer Sciences...", "and he succeeded!!!", "I TRICKED YOU!!!", "I WON THIS GAME!!!", "I MADE YOU LEARN POLYMORPHISM!!", "MWAHAHAHAHH!"];
-  
+ 
+  epilogue = ["what", "the", "...", "you freed them all?", "let me tell you a story,", "of a young boy on the football team in his high \nschool...", "he had a dream...", "that he would teach the Computer Sciences...", "and he succeeded!!!", "I TRICKED YOU!!!", "I WON THIS GAME!!!", "I MADE YOU LEARN POLYMORPHISM!!", "MWAHAHAHAHH!"];
+ 
   lastLines = ["WHAT!?!? PAWNY!?!?", "ARGHHHH", "NOOOO!!!!!", "MY REMOTE!!!!", "YOU CAN'T", "DO THIS-"];
+
 
   spritesPos = [
     [300, -10],
@@ -365,9 +439,11 @@ function setup() {
     [300, 610],
   ];
 
+
   cell = loadImage("assets/images/cell.png");
   bars = loadImage("assets/images/bars.png");
   deepslate = loadImage("assets/images/deepslate.png");
+
 
   pSprites = [
     levels[0].p.sprite,
@@ -378,25 +454,34 @@ function setup() {
     levels[5].panda.sprites
   ];
 
+
   schlamann = loadImage("assets/images/schlamann.png");
+
 
 }
 
+
 function keyPressed() {
 
+
   keys[keyCode] = true;
+
 
   if (scene == "game") {
     //make it prettier, handle in level object
     levels[level].handleKeyPressed();
 
+
   } else if (scene == "start") {
+
 
     if (keyCode == 38) selectedTextOption++;
     if (keyCode == 40) selectedTextOption--;
 
+
     selectedTextOption += textOptions.length;
     selectedTextOption %= textOptions.length;
+
 
     if (keyCode == 13) {
       if (selectedTextOption == 0) {
@@ -409,7 +494,9 @@ function keyPressed() {
       }
     }
 
+
   } else if (scene == "settings") {
+
 
     if (keyCode == 13) {
       scene = "start";
@@ -417,7 +504,9 @@ function keyPressed() {
       selectedTextOption = 0;
     }
 
+
   } else if (scene == "prologue") {
+
 
     if (keyCode == 13) {
       if (dialoguePage + 1 < prologue.length) {
@@ -428,23 +517,30 @@ function keyPressed() {
       }
     }
 
+
   } else if (scene == "questions") {
 
+
     if (keyCode == 13) {
+
 
       if (!answeredQuestion && dialoguePage + 1 < questions[level].length) {
         dialoguePage++;
         frame = 0;
 
+
       } else if (!answeredQuestion) {
+
 
         if (!showAnswers) {
           showAnswers = true;
         } else {
 
+
           frame = 0;
           dialoguePage = 0;
           answeredQuestion = true;
+
 
           if (selectedAnswer[0] * 2 + selectedAnswer[1] == correctAnswers[level]) {
             answeredCorrectly = 1;
@@ -452,16 +548,22 @@ function keyPressed() {
             answeredCorrectly = 0;
           }
 
+
         }
+
 
       } else {
 
+
         if (dialoguePage + 1 < responses[level][answeredCorrectly].length) {
+
 
           dialoguePage++;
           frame = 0;
 
+
         } else {
+
 
           if (answeredCorrectly == 1) {
             level++;
@@ -476,6 +578,7 @@ function keyPressed() {
             }
           }
 
+
           if (level == 6) {
             scene = "epilogue";
           } else {
@@ -484,8 +587,11 @@ function keyPressed() {
         }
 
 
+
+
       }
     }
+
 
     if (showAnswers) {
       if (keyCode == 37 || keyCode == 39)
@@ -494,10 +600,14 @@ function keyPressed() {
         selectedAnswer[0] = (selectedAnswer[0] + 1) % 2;
     }
 
+
   } else if (scene == "epilogue") {
 
 
+
+
     if (keyCode == 13) {
+
 
       if (dialoguePage + 1 < epilogue.length) {
         dialoguePage++;
@@ -505,18 +615,26 @@ function keyPressed() {
       } else {
         frame = 0;
         dialoguePage = 0;
-        scene = "end";
+
+
+        //got rid of ending animation - change to "end" to see
+        scene = "credits";
       }
 
+
     }
+
+
 
 
   }
 }
 
+
 function keyReleased() {
   keys[keyCode] = false;
 }
+
 
 function mouseClicked() {
   if (scene == "game") {

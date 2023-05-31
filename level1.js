@@ -62,28 +62,28 @@ function Gun() {
 
 Gun.prototype.act = function(keys, bullets, bulletSprite) {
   
-    if(keys[82]) this.omega -= 0.5;   
-    if(keys[84]) this.omega += 0.5;
+    if(keys[85]) this.omega -= 0.5;   
+    if(keys[73]) this.omega += 0.5;
     
     
     if(this.omega > 5) this.omega = 5;
     if(this.omega < -5) this.omega = -5;
     
-    if(!keys[82] && !keys[84]) this.omega *= 0.8;   
+    if(!keys[85] && !keys[73]) this.omega *= 0.8;   
     
     
-    if(keys[75] && this.timer <= 0) {
+    if(keys[76] && this.timer <= 0) {
         this.shoot(bullets, bulletSprite);
         this.timer = 10;
     }
     
-    if(keys[65]) this.velX -= 0.5;
-    if(keys[68]) this.velX += 0.5;
-    if(keys[87]) this.velY -= 0.5;
-    if(keys[83]) this.velY += 0.5;
+    if(keys[68]) this.velX -= 0.5;
+    if(keys[71]) this.velX += 0.5;
+    if(keys[82]) this.velY -= 0.5;
+    if(keys[70]) this.velY += 0.5;
     
-    if(!keys[65] && !keys[68]) this.velX *= 0.8;
-    if(!keys[87] && !keys[83]) this.velY *= 0.8;
+    if(!keys[68] && !keys[71]) this.velX *= 0.8;
+    if(!keys[82] && !keys[70]) this.velY *= 0.8;
     
     if(this.velX > 3) this.velX = 3;
     if(this.velX < -3) this.velX = -3;
