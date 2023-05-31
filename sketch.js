@@ -472,7 +472,7 @@ function draw() {
       fill(255);
       textSize(30);
 
-      if (frame < 1900 + 150) {
+      if (frame < 1300 + 150) {
 
         push();
 
@@ -488,15 +488,11 @@ function draw() {
 
         text("art by maria jiao & shivum banerjee", 600, 1700);
 
-        text("game design, advice, criticism, CEO, dialogue, *coding, marketing, & inspiration by payton levinthal", 600, 2000);
+        text("story by elyssa chandler, maria jiao, & shivum banerjee", 600, 2000);
 
-        text("playtesting by payton's ap physics 1 class", 600, 2300);
+        text("minigames by shivum banerjee & alex yang", 600, 2300);
 
-        text("story by elyssa chandler, maria jiao, & shivum banerjee", 600, 2600);
-
-        text("minigames by shivum banerjee & alex yang", 600, 2900);
-
-        text("animations by maria jiao & shivum banerjee", 600, 3200);
+        text("animations by maria jiao & shivum banerjee", 600, 2600);
         pop();
 
       } else {
